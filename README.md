@@ -1,3 +1,7 @@
+![header](https://capsule-render.vercel.app/api?type=waving&color=0:00008B,50:4169E1,100:1E90FF&height=300&section=header&text=FakeLenseV2&fontColor=00008B&fontSize=110&fontAlignY=40&fontAlign=50&animation=fadeIn&fontStyle=stroke)
+
+<div align="center">
+
 # FakeLense: An AI-Powered Fake News Detection System Integrating NLP and Reinforcement Learning
 ## 1. Introduction
 Fake news and disinformation pose significant threats to societies, influencing public opinion and undermining trust in credible information sources. Traditional machine learning approaches, while effective, often lack adaptability and fail to generalize well to evolving misinformation patterns.

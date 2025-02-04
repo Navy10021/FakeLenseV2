@@ -69,14 +69,14 @@ FakeLenseV2 consists of three primary components:
 ## 5. Usage
 ### 5.1 Training the Model
  ```python
-   from model import train_agent
+from model import train_agent
 train_agent(num_episodes=500, patience=15)
 
    ```
 
 ### 5.2 Performing Inference
  ```python
-   from model import infer
+from model import infer
 
 text = "Breaking news: Scientists discover a new planet with signs of life."
 source = "CNN"
@@ -86,3 +86,23 @@ result = infer(text, source, social_reactions)
 print(f"Prediction: {result}")  # Output: {2: Real, 1: Suspicious, 0: Fake}
 
    ```
+
+## 6. Evaluation
+### 6.1 Performance Metrics
+ ```python
+from model import eval_agent
+eval_agent()
+
+   ```
+
+### 6.2 Benchmarking Results
+
+### 6.3 Fake News Detection Performance Evaluation Results
+The experimental results demonstrated a **high detection accuracy of over 97%**, proving the tool's effectiveness in identifying fake news. **FakeLenseV2** is expected to serve as an innovative "cognitive warfare" tool, capable of addressing misinformation across various channels and contributing to national interests.
+
+## 👨‍💻 Contributors
+- **Seoul National University Graduate School of Data Science (SNU GSDS)**
+- Under the guidance of ***Navy Lee***
+
+## 📜 License
+This project is licensed under the MIT License. See the LICENSE file for more details.

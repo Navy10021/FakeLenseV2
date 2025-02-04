@@ -2,14 +2,24 @@
 
 <div align="center">
 
-# FakeLenseV2: Fake News Detection Model Integrating NLP and Reinforcement Learning
+# 📰🔍 FakeLenseV2: Fake News Detection Model Integrating NLP and Reinforcement Learning
 </div>
 
 ## 1. Introduction
-Fake news and disinformation pose significant threats to societies, influencing public opinion and undermining trust in credible information sources. Traditional machine learning approaches, while effective, often lack adaptability and fail to generalize well to evolving misinformation patterns.
-FakeLense is an advanced AI-driven fake news detection framework that integrates Natural Language Processing (NLP) and Deep Reinforcement Learning (DRL) techniques to enhance detection accuracy and adaptability.
+Fake news and disinformation have become pervasive threats to societies, shaping public opinion, influencing political discourse, and eroding trust in credible information sources. The rapid evolution of misinformation tactics necessitates **adaptive and robust detection mechanisms** that go beyond traditional machine learning approaches. While conventional supervised models have demonstrated effectiveness, they often struggle with **generalizing to unseen misinformation patterns** and lack the ability to dynamically adapt to new forms of deceptive content.
 
-FakeLenseV2 employs BERT-based embeddings, a Deep Q-Network (DQN) with residual connections, and an adaptive reward mechanism to classify news articles into real, suspicious, or fake news categories. Unlike conventional supervised models, FakeLense leverages reinforcement learning to iteratively refine its classification strategy based on dynamically evolving misinformation patterns.
+To address these challenges, **FakeLenseV2** introduces an AI-powered fake news detection framework that integrates Natural Language Processing (NLP) and Deep Reinforcement Learning (DRL) to enhance classification accuracy, adaptability, and robustness. Unlike static classifiers, FakeLenseV2 iteratively refines its decision-making process, ensuring superior resilience against evolving misinformation strategies.
+
+**FakeLenseV1** was an **NLP-driven fake news detection model** designed to identify and prevent the proliferation of disinformation. By leveraging **BERT for deep text comprehension** and **GPT for generative insights**, it achieved high accuracy in detecting deceptive content while dynamically adapting to shifting misinformation trends.
+
+🔗 **FakeLenseV1 GitHub Repository:** [FakeLenseV1](https://github.com/Navy10021/FakeLense)
+
+Building on this foundation, **FakeLenseV2** integrates **reinforcement learning (RL)** methodologies to **further enhance detection capabilities**. Unlike its predecessor, FakeLenseV2 employs:
+✅ **BERT-based embeddings** for robust text representation.
+✅ **Deep Q-Networks (DQN)** with **residual learning** to refine classification strategies dynamically.
+✅ **An adaptive reward mechanism** to improve long-term learning efficiency.
+
+By leveraging RL-driven adaptive learning, **FakeLenseV2** dynamically adjusts to new disinformation patterns, optimizes its classification policy, and strengthens its resilience against adversarial manipulation. This results in higher accuracy, improved generalization, and enhanced real-time misinformation detection—marking a significant leap forward in AI-driven fact-checking technologies.
 
 ## 2. Key Features
 ### 2.1 NLP-Based Text Representation

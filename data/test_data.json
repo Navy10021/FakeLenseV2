@@ -1,0 +1,182 @@
+[
+    {
+        "text": "NASA launches new satellite to monitor climate change.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 7500,
+        "label": 2
+    },
+    {
+        "text": "Global health experts discuss strategies to combat antibiotic resistance.",
+        "source_reliability": "BBC",
+        "social_reactions": 8000,
+        "label": 2
+    },
+    {
+        "text": "U.S. government announces new initiatives to combat cybersecurity threats.",
+        "source_reliability": "Reuters",
+        "social_reactions": 8800,
+        "label": 2
+    },
+    {
+        "text": "G7 leaders commit to reducing carbon emissions by 50% by 2030.",
+        "source_reliability": "The New York Times",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "European Union agrees on stricter privacy regulations for tech companies.",
+        "source_reliability": "The Wall Street Journal",
+        "social_reactions": 8100,
+        "label": 2
+    },
+    {
+        "text": "The United Nations sets new targets for global poverty reduction.",
+        "source_reliability": "Reuters",
+        "social_reactions": 8700,
+        "label": 2
+    },
+    {
+        "text": "WHO announces new campaign to eliminate polio in Africa by 2025.",
+        "source_reliability": "BBC",
+        "social_reactions": 9400,
+        "label": 2
+    },
+    {
+        "text": "Pentagon unveils new artificial intelligence-driven defense systems.",
+        "source_reliability": "The Washington Post",
+        "social_reactions": 9000,
+        "label": 2
+    },
+    {
+        "text": "Global leaders pledge to accelerate renewable energy adoption by 2035.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 8500,
+        "label": 2
+    },
+    {
+        "text": "CDC releases new study on mental health impacts of the pandemic.",
+        "source_reliability": "Reuters",
+        "social_reactions": 9500,
+        "label": 2
+    },
+    {
+        "text": "Government accused of secretly storing citizens' biometric data.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "Tech companies allegedly collaborating with foreign governments on surveillance.",
+        "source_reliability": "Fox News",
+        "social_reactions": 11500,
+        "label": 1
+    },
+    {
+        "text": "Insider claims that health officials are hiding key data on vaccine safety.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 12500,
+        "label": 1
+    },
+    {
+        "text": "Whistleblower reveals that international elections are being manipulated online.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 9300,
+        "label": 1
+    },
+    {
+        "text": "Anonymous source claims the government is conducting secret mind control experiments.",
+        "source_reliability": "CNN",
+        "social_reactions": 10200,
+        "label": 1
+    },
+    {
+        "text": "Rumors of widespread government censorship of online content emerge.",
+        "source_reliability": "Daily Mail",
+        "social_reactions": 11100,
+        "label": 1
+    },
+    {
+        "text": "Leaked document suggests pharmaceutical companies have been inflating drug prices.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 13000,
+        "label": 1
+    },
+    {
+        "text": "Conspiracy theorists claim elites are secretly controlling the media to push political agendas.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 12800,
+        "label": 1
+    },
+    {
+        "text": "Unverified report suggests that the military is planning a covert operation to suppress protests.",
+        "source_reliability": "Infowars",
+        "social_reactions": 14000,
+        "label": 1
+    },
+    {
+        "text": "Alleged insider leaks suggest that a shadow government controls world leaders.",
+        "source_reliability": "Natural News",
+        "social_reactions": 12200,
+        "label": 1
+    },
+    {
+        "text": "Aliens are secretly living among us and influencing world politics.",
+        "source_reliability": "Infowars",
+        "social_reactions": 13000,
+        "label": 0
+    },
+    {
+        "text": "The moon landing was faked by the U.S. government in the 1960s.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 12000,
+        "label": 0
+    },
+    {
+        "text": "Bill Gates plans to use vaccines for global population control.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 12500,
+        "label": 0
+    },
+    {
+        "text": "The Earth is flat and NASA is covering it up.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 13000,
+        "label": 0
+    },
+    {
+        "text": "Government secretly implanting microchips in vaccines to track citizens.",
+        "source_reliability": "Natural News",
+        "social_reactions": 13500,
+        "label": 0
+    },
+    {
+        "text": "Secret cabals are using technology to manipulate global weather patterns.",
+        "source_reliability": "Infowars",
+        "social_reactions": 14000,
+        "label": 0
+    },
+    {
+        "text": "Scientists prove that the Earth is hollow and inhabited by advanced civilizations.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 14500,
+        "label": 0
+    },
+    {
+        "text": "Governments are secretly using subliminal messaging to control citizens' thoughts.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 13200,
+        "label": 0
+    },
+    {
+        "text": "5G technology is a tool for mind control, according to whistleblowers.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 13800,
+        "label": 0
+    },
+    {
+        "text": "Global elites are plotting to install AI overlords to rule humanity.",
+        "source_reliability": "Natural News",
+        "social_reactions": 14500,
+        "label": 0
+    }
+]

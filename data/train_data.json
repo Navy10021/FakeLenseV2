@@ -1,0 +1,1352 @@
+[
+    {
+        "text": "U.S. Senate passes new voting rights bill aimed at protecting democracy.",
+        "source_reliability": "The New York Times",
+        "social_reactions": 10500,
+        "label": 2
+    },
+    {
+        "text": "EU leaders agree on a multi-billion euro economic recovery plan for post-pandemic growth.",
+        "source_reliability": "BBC",
+        "social_reactions": 11200,
+        "label": 2
+    },
+    {
+        "text": "China’s president announces new initiatives to strengthen economic ties with Africa.",
+        "source_reliability": "Reuters",
+        "social_reactions": 9800,
+        "label": 2
+    },
+    {
+        "text": "Brazilian government declares a national emergency in response to rising deforestation rates.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "Indian Prime Minister pledges to improve relations with neighboring countries in peace talks.",
+        "source_reliability": "The Wall Street Journal",
+        "social_reactions": 8900,
+        "label": 2
+    },
+    {
+        "text": "UK announces new policies to tackle climate change and reduce carbon emissions by 2030.",
+        "source_reliability": "BBC",
+        "social_reactions": 9500,
+        "label": 2
+    },
+    {
+        "text": "South Korea increases defense spending in response to North Korea's missile tests.",
+        "source_reliability": "Reuters",
+        "social_reactions": 9900,
+        "label": 2
+    },
+    {
+        "text": "German Chancellor Merkel pledges to fight corruption with new anti-money laundering laws.",
+        "source_reliability": "The Washington Post",
+        "social_reactions": 9100,
+        "label": 2
+    },
+    {
+        "text": "French President Macron calls for European unity in the face of rising nationalism.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 9600,
+        "label": 2
+    },
+    {
+        "text": "Canadian Prime Minister announces new measures to combat housing affordability crisis.",
+        "source_reliability": "Reuters",
+        "social_reactions": 9800,
+        "label": 2
+    },
+    {
+        "text": "Global stock markets surge after positive earnings reports.",
+        "source_reliability": "The Wall Street Journal",
+        "social_reactions": 9100,
+        "label": 2
+    },
+    {
+        "text": "NASA unveils new rover for upcoming Mars mission.",
+        "source_reliability": "Reuters",
+        "social_reactions": 9500,
+        "label": 2
+    },
+    {
+        "text": "New international trade deal signed between US and China.",
+        "source_reliability": "BBC",
+        "social_reactions": 8800,
+        "label": 2
+    },
+    {
+        "text": "World Health Organization announces breakthrough in malaria treatment.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "Stock market hits all-time high as investor confidence increases.",
+        "source_reliability": "Financial Times",
+        "social_reactions": 8500,
+        "label": 2
+    },
+    {
+        "text": "U.S. Senate approves new economic relief package.",
+        "source_reliability": "The New York Times",
+        "social_reactions": 8500,
+        "label": 2
+    },
+    {
+        "text": "World leaders gather for annual climate summit in Geneva.",
+        "source_reliability": "BBC",
+        "social_reactions": 7800,
+        "label": 2
+    },
+    {
+        "text": "U.N. warns of rising global food shortages.",
+        "source_reliability": "Reuters",
+        "social_reactions": 8900,
+        "label": 2
+    },
+    {
+        "text": "Supreme Court to hear arguments on key immigration policy.",
+        "source_reliability": "The Washington Post",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "Congress passes cybersecurity bill to strengthen defenses.",
+        "source_reliability": "Associated Press",
+        "social_reactions": 8600,
+        "label": 2
+    },
+    {
+        "text": "EU leaders agree on new framework for digital regulations.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 8100,
+        "label": 2
+    },
+    {
+        "text": "CDC updates COVID-19 guidelines following latest research.",
+        "source_reliability": "Reuters",
+        "social_reactions": 9700,
+        "label": 2
+    },
+    {
+        "text": "Pentagon announces plans for expanded space defense program.",
+        "source_reliability": "The New York Times",
+        "social_reactions": 8900,
+        "label": 2
+    },
+    {
+        "text": "Federal Reserve signals potential interest rate adjustments.",
+        "source_reliability": "The Wall Street Journal",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "WHO declares new progress in fight against global pandemics.",
+        "source_reliability": "BBC",
+        "social_reactions": 9300,
+        "label": 2
+    },
+    {
+        "text": "Global leaders meet at the United Nations to discuss climate change solutions.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 8500,
+        "label": 2
+    },
+    {
+        "text": "United Nations launches humanitarian aid initiative for refugees in war zones.",
+        "source_reliability": "Associated Press",
+        "social_reactions": 9100,
+        "label": 2
+    },
+    {
+        "text": "US government approves large-scale investment in renewable energy.",
+        "source_reliability": "Bloomberg",
+        "social_reactions": 8700,
+        "label": 2
+    },
+    {
+        "text": "European Union imposes stricter sanctions on Russia in response to aggressive actions.",
+        "source_reliability": "The Financial Times",
+        "social_reactions": 9500,
+        "label": 2
+    },
+    {
+        "text": "International monetary fund predicts stable economic growth for global markets.",
+        "source_reliability": "Reuters",
+        "social_reactions": 8900,
+        "label": 2
+    },
+    {
+        "text": "The United Nations urges immediate ceasefire in Gaza conflict.",
+        "source_reliability": "BBC",
+        "social_reactions": 8200,
+        "label": 2
+    },
+    {
+        "text": "U.S. and China agree to resume high-level trade talks.",
+        "source_reliability": "Reuters",
+        "social_reactions": 7600,
+        "label": 2
+    },
+    {
+        "text": "European Union imposes new sanctions on Russia over Ukraine war.",
+        "source_reliability": "The New York Times",
+        "social_reactions": 9400,
+        "label": 2
+    },
+    {
+        "text": "South Korea and Japan strengthen military cooperation amid regional tensions.",
+        "source_reliability": "The Washington Post",
+        "social_reactions": 6800,
+        "label": 2
+    },
+    {
+        "text": "World Bank warns of global recession risks in 2025.",
+        "source_reliability": "Financial Times",
+        "social_reactions": 7200,
+        "label": 2
+    },
+    {
+        "text": "North Korea fires ballistic missile over Japan, sparking international concern.",
+        "source_reliability": "CNN",
+        "social_reactions": 11000,
+        "label": 2
+    },
+    {
+        "text": "U.S. Senate passes bill to increase cybersecurity funding.",
+        "source_reliability": "Bloomberg",
+        "social_reactions": 9500,
+        "label": 2
+    },
+    {
+        "text": "Germany to phase out coal power by 2035 in new climate policy.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 8900,
+        "label": 2
+    },
+    {
+        "text": "French President calls for European strategic autonomy in defense.",
+        "source_reliability": "Le Monde",
+        "social_reactions": 7200,
+        "label": 2
+    },
+    {
+        "text": "India surpasses China as world’s most populous country.",
+        "source_reliability": "Hindustan Times",
+        "social_reactions": 8100,
+        "label": 2
+    },
+    {
+        "text": "World Health Organization announces new global health initiative.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 9500,
+        "label": 2
+    },
+    {
+        "text": "NASA successfully launches new satellite for climate research.",
+        "source_reliability": "Reuters",
+        "social_reactions": 8000,
+        "label": 2
+    },
+    {
+        "text": "U.S. economy shows signs of recovery with strong job growth.",
+        "source_reliability": "Bloomberg",
+        "social_reactions": 8800,
+        "label": 2
+    },
+    {
+        "text": "G7 summit discusses global trade and climate action.",
+        "source_reliability": "Financial Times",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "China and U.S. agree on new climate change pact.",
+        "source_reliability": "NPR",
+        "social_reactions": 8600,
+        "label": 2
+    },
+    {
+        "text": "U.S. Congress passes a bill to enhance election security.",
+        "source_reliability": "The New York Times",
+        "social_reactions": 8000,
+        "label": 2
+    },
+    {
+        "text": "United Nations holds emergency meeting on climate change policies.",
+        "source_reliability": "BBC",
+        "social_reactions": 7500,
+        "label": 2
+    },
+    {
+        "text": "European Union imposes new sanctions on Russia.",
+        "source_reliability": "Reuters",
+        "social_reactions": 9000,
+        "label": 2
+    },
+    {
+        "text": "Supreme Court rules on major voting rights case.",
+        "source_reliability": "The Washington Post",
+        "social_reactions": 8700,
+        "label": 2
+    },
+    {
+        "text": "President signs landmark healthcare reform bill into law.",
+        "source_reliability": "Associated Press",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "World Health Organization announces new global health initiative.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 9500,
+        "label": 2
+    },
+    {
+        "text": "NASA successfully launches new satellite for climate research.",
+        "source_reliability": "Reuters",
+        "social_reactions": 8000,
+        "label": 2
+    },
+    {
+        "text": "U.S. economy shows signs of recovery with strong job growth.",
+        "source_reliability": "Bloomberg",
+        "social_reactions": 8800,
+        "label": 2
+    },
+    {
+        "text": "G7 summit discusses global trade and climate action.",
+        "source_reliability": "Financial Times",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "China and U.S. agree on new climate change pact.",
+        "source_reliability": "NPR",
+        "social_reactions": 8600,
+        "label": 2
+    },
+    {
+        "text": "U.S. government introduces new stimulus package to support economy.",
+        "source_reliability": "The New York Times",
+        "social_reactions": 8100,
+        "label": 2
+    },
+    {
+        "text": "The World Bank announces major funding for climate change initiatives.",
+        "source_reliability": "BBC",
+        "social_reactions": 7800,
+        "label": 2
+    },
+    {
+        "text": "UNESCO celebrates the preservation of world heritage sites.",
+        "source_reliability": "Reuters",
+        "social_reactions": 8800,
+        "label": 2
+    },
+    {
+        "text": "U.S. Congress passes new legislation for affordable healthcare.",
+        "source_reliability": "The Washington Post",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "World leaders agree on new measures to combat global poverty.",
+        "source_reliability": "Associated Press",
+        "social_reactions": 9500,
+        "label": 2
+    },
+    {
+        "text": "China and the U.S. sign landmark trade deal to boost bilateral ties.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 9600,
+        "label": 2
+    },
+    {
+        "text": "World Bank provides funds for educational reforms in developing countries.",
+        "source_reliability": "Financial Times",
+        "social_reactions": 8900,
+        "label": 2
+    },
+    {
+        "text": "Japan launches new initiative to reduce plastic waste in oceans.",
+        "source_reliability": "Bloomberg",
+        "social_reactions": 8600,
+        "label": 2
+    },
+    {
+        "text": "Global health experts meet to discuss new approaches to fighting pandemics.",
+        "source_reliability": "NPR",
+        "social_reactions": 9300,
+        "label": 2
+    },
+    {
+        "text": "Canada and the U.S. collaborate on reducing carbon emissions.",
+        "source_reliability": "Reuters",
+        "social_reactions": 8500,
+        "label": 2
+    },
+    {
+        "text": "New scientific research reveals that renewable energy sources could power the world by 2050.",
+        "source_reliability": "BBC",
+        "social_reactions": 8300,
+        "label": 2
+    },
+    {
+        "text": "United States signs landmark climate change agreement with over 100 nations.",
+        "source_reliability": "The New York Times",
+        "social_reactions": 9000,
+        "label": 2
+    },
+    {
+        "text": "World Health Organization announces significant progress in fighting global malaria outbreak.",
+        "source_reliability": "Reuters",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "Global leaders commit to reducing carbon emissions in new 10-year climate pact.",
+        "source_reliability": "The Guardian",
+        "social_reactions": 8700,
+        "label": 2
+    },
+    {
+        "text": "France and Germany increase defense cooperation to address rising geopolitical tensions.",
+        "source_reliability": "The Financial Times",
+        "social_reactions": 8500,
+        "label": 2
+    },
+    {
+        "text": "US Federal Reserve increases interest rates to combat inflation.",
+        "source_reliability": "The Wall Street Journal",
+        "social_reactions": 8500,
+        "label": 2
+    },
+    {
+        "text": "NASA successfully lands rover on Mars to search for signs of life.",
+        "source_reliability": "BBC",
+        "social_reactions": 9600,
+        "label": 2
+    },
+    {
+        "text": "World Health Organization announces new global vaccination initiative.",
+        "source_reliability": "Reuters",
+        "social_reactions": 9200,
+        "label": 2
+    },
+    {
+        "text": "Supreme Court rules in favor of climate change regulation.",
+        "source_reliability": "The Washington Post",
+        "social_reactions": 9800,
+        "label": 2
+    },
+    {
+        "text": "EU leaders agree to strengthen trade agreements with emerging markets.",
+        "source_reliability": "Financial Times",
+        "social_reactions": 8700,
+        "label": 2
+    },
+    {
+        "text": "Politician secretly funded by foreign governments to influence national policies.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 12000,
+        "label": 1
+    },
+    {
+        "text": "Whistleblower claims government officials are involved in election rigging scandals.",
+        "source_reliability": "Fox News",
+        "social_reactions": 11500,
+        "label": 1
+    },
+    {
+        "text": "Politicians secretly making backdoor deals with corporate giants to push their own agendas.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 12500,
+        "label": 1
+    },
+    {
+        "text": "Unverified claims suggest national leaders are using misinformation to manipulate voters.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "Anonymous source reveals that a secret political group controls major media outlets.",
+        "source_reliability": "CNN",
+        "social_reactions": 11000,
+        "label": 1
+    },
+    {
+        "text": "Rumors spread that government officials are involved in large-scale money laundering schemes.",
+        "source_reliability": "Daily Mail",
+        "social_reactions": 10800,
+        "label": 1
+    },
+    {
+        "text": "Leaked documents suggest secret meetings between high-ranking officials to undermine democracy.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 12000,
+        "label": 1
+    },
+    {
+        "text": "Conspiracy theorists claim powerful politicians are working with foreign entities to control elections.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 13000,
+        "label": 1
+    },
+    {
+        "text": "Unconfirmed report alleges that political leaders have secretly met to plot global control.",
+        "source_reliability": "Infowars",
+        "social_reactions": 12500,
+        "label": 1
+    },
+    {
+        "text": "Reports surface claiming that shadow governments are manipulating public policies across the globe.",
+        "source_reliability": "Natural News",
+        "social_reactions": 12200,
+        "label": 1
+    },
+    {
+        "text": "China allegedly suppresses reports of new political unrest.",
+        "source_reliability": "CNN",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "US tech giants accused of undermining democracy with censorship.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 12000,
+        "label": 1
+    },
+    {
+        "text": "Russia reveals secret plan to manipulate international elections.",
+        "source_reliability": "Fox News",
+        "social_reactions": 9800,
+        "label": 1
+    },
+    {
+        "text": "Government secretly taps into citizens' personal data for surveillance.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 11000,
+        "label": 1
+    },
+    {
+        "text": "Activists claim that election fraud is rampant in several states.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 9400,
+        "label": 1
+    },
+    {
+        "text": "Anonymous sources claim major voting irregularities in 2024 elections.",
+        "source_reliability": "Fox News",
+        "social_reactions": 15000,
+        "label": 1
+    },
+    {
+        "text": "Leaked emails suggest government officials manipulated inflation data.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 13500,
+        "label": 1
+    },
+    {
+        "text": "Russian hackers allegedly influence European Parliament decisions.",
+        "source_reliability": "Daily Mail",
+        "social_reactions": 12800,
+        "label": 1
+    },
+    {
+        "text": "Scientists discover secret population control mechanism in food supply.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 17000,
+        "label": 1
+    },
+    {
+        "text": "Unverified report claims military preparing for nationwide lockdown.",
+        "source_reliability": "Infowars",
+        "social_reactions": 18500,
+        "label": 1
+    },
+    {
+        "text": "Leaked documents suggest secret meetings between world leaders and AI companies.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 14000,
+        "label": 1
+    },
+    {
+        "text": "Cryptic messages in NASA data hint at extraterrestrial government collaboration.",
+        "source_reliability": "Natural News",
+        "social_reactions": 16000,
+        "label": 1
+    },
+    {
+        "text": "Classified report reveals new pandemic could be intentionally released.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 15000,
+        "label": 1
+    },
+    {
+        "text": "Global food shortages planned by powerful elite, says whistleblower.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 17000,
+        "label": 1
+    },
+    {
+        "text": "Surveillance footage shows ballot stuffing in several key states.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 16500,
+        "label": 1
+    },
+    {
+        "text": "Scientists claim to have uncovered new evidence of alien life.",
+        "source_reliability": "Fox News",
+        "social_reactions": 11000,
+        "label": 1
+    },
+    {
+        "text": "Experts say the government is hiding the truth about UFOs.",
+        "source_reliability": "CNN",
+        "social_reactions": 9500,
+        "label": 1
+    },
+    {
+        "text": "Political insiders reveal shocking details of covert government operation.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 10000,
+        "label": 1
+    },
+    {
+        "text": "New world order: Global elites are plotting to control the economy.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 9800,
+        "label": 1
+    },
+    {
+        "text": "Banking system manipulation exposed by whistleblower.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "Scientists claim to have uncovered new evidence of alien life.",
+        "source_reliability": "Fox News",
+        "social_reactions": 11000,
+        "label": 1
+    },
+    {
+        "text": "Experts say the government is hiding the truth about UFOs.",
+        "source_reliability": "CNN",
+        "social_reactions": 9500,
+        "label": 1
+    },
+    {
+        "text": "Political insiders reveal shocking details of covert government operation.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 10000,
+        "label": 1
+    },
+    {
+        "text": "New world order: Global elites are plotting to control the economy.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 9800,
+        "label": 1
+    },
+    {
+        "text": "Banking system manipulation exposed by whistleblower.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "World leaders meet secretly to discuss population control plans.",
+        "source_reliability": "Fox News",
+        "social_reactions": 10800,
+        "label": 1
+    },
+    {
+        "text": "Whistleblower claims tech companies are controlling public opinion.",
+        "source_reliability": "CNN",
+        "social_reactions": 10200,
+        "label": 1
+    },
+    {
+        "text": "Scientists fear new world order is being established by secret societies.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 9500,
+        "label": 1
+    },
+    {
+        "text": "Government involved in cover-up of major global disaster.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 10000,
+        "label": 1
+    },
+    {
+        "text": "Famous politicians linked to secret government projects.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 9700,
+        "label": 1
+    },
+    {
+        "text": "Global warming is part of a plan to control the world's population.",
+        "source_reliability": "Fox News",
+        "social_reactions": 10000,
+        "label": 1
+    },
+    {
+        "text": "Hollywood elites are said to control global politics behind the scenes.",
+        "source_reliability": "CNN",
+        "social_reactions": 9500,
+        "label": 1
+    },
+    {
+        "text": "Political leaders are accused of using pandemic to seize power.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 9800,
+        "label": 1
+    },
+    {
+        "text": "Government scientists claim evidence of a massive cover-up about UFOs.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 9200,
+        "label": 1
+    },
+    {
+        "text": "Tech giants accused of censoring free speech to control public opinion.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "Top politicians linked to underground society with global ambitions.",
+        "source_reliability": "Fox News",
+        "social_reactions": 11000,
+        "label": 1
+    },
+    {
+        "text": "Global warming is a hoax used to further government control.",
+        "source_reliability": "CNN",
+        "social_reactions": 10200,
+        "label": 1
+    },
+    {
+        "text": "NASA caught hiding evidence of extraterrestrial life on Mars.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 10000,
+        "label": 1
+    },
+    {
+        "text": "Whistleblowers claim major banks are involved in illegal global manipulation.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 9600,
+        "label": 1
+    },
+    {
+        "text": "The deep state is plotting to control the entire global economy.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 9900,
+        "label": 1
+    },
+    {
+        "text": "Secret political meetings between government officials and tech companies revealed.",
+        "source_reliability": "CNN",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "Multiple sources suggest that major election fraud may have occurred in several swing states.",
+        "source_reliability": "Fox News",
+        "social_reactions": 9400,
+        "label": 1
+    },
+    {
+        "text": "Conspiracy theorists claim that a political cover-up is in progress to hide election rigging.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 11000,
+        "label": 1
+    },
+    {
+        "text": "Alleged emails link top political figures to international money laundering networks.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 9800,
+        "label": 1
+    },
+    {
+        "text": "New whistleblower revelations suggest government interference in judicial appointments.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 9200,
+        "label": 1
+    },
+    {
+        "text": "Exposed documents show that major companies are funding climate change denial groups.",
+        "source_reliability": "Fox News",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "Recent scandal uncovers political leaders involved in money laundering.",
+        "source_reliability": "CNN",
+        "social_reactions": 9800,
+        "label": 1
+    },
+    {
+        "text": "Whistleblowers reveal government espionage activities targeting political rivals.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 11000,
+        "label": 1
+    },
+    {
+        "text": "Politicians allegedly using social media to manipulate voters with false information.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 10000,
+        "label": 1
+    },
+    {
+        "text": "Experts claim election results may have been affected by international interference.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 9300,
+        "label": 1
+    },
+    {
+        "text": "Election officials accused of altering voter registrations.",
+        "source_reliability": "Fox News",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "Massive protests erupt over alleged election fraud.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 9800,
+        "label": 1
+    },
+    {
+        "text": "Anonymous whistleblower leaks secret government documents.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 10200,
+        "label": 1
+    },
+    {
+        "text": "Social media companies censor political opponents.",
+        "source_reliability": "CNN",
+        "social_reactions": 9600,
+        "label": 1
+    },
+    {
+        "text": "Polls indicate public dissatisfaction with mainstream media.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 9400,
+        "label": 1
+    },
+    {
+        "text": "Government watchdog raises concerns over election security.",
+        "source_reliability": "The Sun",
+        "social_reactions": 9900,
+        "label": 1
+    },
+    {
+        "text": "Protests against government policies intensify across the nation.",
+        "source_reliability": "Fox News",
+        "social_reactions": 10300,
+        "label": 1
+    },
+    {
+        "text": "Investigative report suggests lobbying influences new tax law.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 9100,
+        "label": 1
+    },
+    {
+        "text": "Political think tanks warn of economic recession risks.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 9700,
+        "label": 1
+    },
+    {
+        "text": "High-profile political figures under investigation for fraud.",
+        "source_reliability": "CNN",
+        "social_reactions": 10800,
+        "label": 1
+    },
+    {
+        "text": "Government officials caught covering up deadly side effects of new vaccine.",
+        "source_reliability": "Fox News",
+        "social_reactions": 11000,
+        "label": 1
+    },
+    {
+        "text": "Tech companies accused of manipulating social media algorithms to favor certain political parties.",
+        "source_reliability": "Breitbart",
+        "social_reactions": 9700,
+        "label": 1
+    },
+    {
+        "text": "Activists claim pharmaceutical companies are hiding cure for cancer to profit from treatments.",
+        "source_reliability": "CNN",
+        "social_reactions": 10500,
+        "label": 1
+    },
+    {
+        "text": "Whistleblower reveals secret government operation to suppress climate change evidence.",
+        "source_reliability": "MSNBC",
+        "social_reactions": 11500,
+        "label": 1
+    },
+    {
+        "text": "Senators accused of secretly accepting bribes to influence voting decisions.",
+        "source_reliability": "The Daily Mail",
+        "social_reactions": 9800,
+        "label": 1
+    },
+    {
+        "text": "Politicians are secretly building a global one-world government with the help of extraterrestrials.",
+        "source_reliability": "Infowars",
+        "social_reactions": 13500,
+        "label": 0
+    },
+    {
+        "text": "World leaders are hiding evidence of the Earth’s true shape to maintain control over the population.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 13000,
+        "label": 0
+    },
+    {
+        "text": "Government officials are secretly planning to microchip the entire population under the guise of security.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 14500,
+        "label": 0
+    },
+    {
+        "text": "A global political elite is conspiring to eliminate the middle class and create a new world order.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 14000,
+        "label": 0
+    },
+    {
+        "text": "The political elites are using advanced technology to manipulate the global weather and control the population.",
+        "source_reliability": "Natural News",
+        "social_reactions": 15000,
+        "label": 0
+    },
+    {
+        "text": "U.S. politicians secretly control the media to influence public opinion and suppress free speech.",
+        "source_reliability": "Infowars",
+        "social_reactions": 14200,
+        "label": 0
+    },
+    {
+        "text": "Global leaders are secretly orchestrating a financial collapse to impose totalitarian rule.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 13800,
+        "label": 0
+    },
+    {
+        "text": "Political leaders worldwide are conspiring to introduce a new world currency to control economies.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 13500,
+        "label": 0
+    },
+    {
+        "text": "Governments are developing mind control technologies to ensure absolute political compliance.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 14000,
+        "label": 0
+    },
+    {
+        "text": "Politicians are secretly using AI systems to monitor and influence citizens’ thoughts and actions.",
+        "source_reliability": "Natural News",
+        "social_reactions": 14500,
+        "label": 0
+    },
+    {
+        "text": "Government secretly planning mass surveillance with AI.",
+        "source_reliability": "Infowars",
+        "social_reactions": 14000,
+        "label": 0
+    },
+    {
+        "text": "New evidence suggests world leaders follow a secret cult.",
+        "source_reliability": "Natural News",
+        "social_reactions": 13500,
+        "label": 0
+    },
+    {
+        "text": "Vaccines contain microchips to track population movements.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 12500,
+        "label": 0
+    },
+    {
+        "text": "Election was rigged using hidden algorithms in voting machines.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 13200,
+        "label": 0
+    },
+    {
+        "text": "5G towers are causing unexplained illnesses across the country.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 11800,
+        "label": 0
+    },
+    {
+        "text": "Government planning mandatory microchip implants for all citizens.",
+        "source_reliability": "Infowars",
+        "social_reactions": 14000,
+        "label": 0
+    },
+    {
+        "text": "New documents reveal elite cabal controlling world governments.",
+        "source_reliability": "Natural News",
+        "social_reactions": 13200,
+        "label": 0
+    },
+    {
+        "text": "Bill Gates funds secret project to depopulate the world.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 12500,
+        "label": 0
+    },
+    {
+        "text": "5G towers linked to mysterious illnesses and mind control.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 12900,
+        "label": 0
+    },
+    {
+        "text": "NASA scientist confirms the Earth is actually flat.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 11900,
+        "label": 0
+    },
+    {
+        "text": "U.S. government hiding evidence of alien contact.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 13400,
+        "label": 0
+    },
+    {
+        "text": "Secret military program creating weather-controlling technology.",
+        "source_reliability": "Infowars",
+        "social_reactions": 12300,
+        "label": 0
+    },
+    {
+        "text": "Deep state plotting to replace world leaders with AI clones.",
+        "source_reliability": "Natural News",
+        "social_reactions": 12700,
+        "label": 0
+    },
+    {
+        "text": "COVID-19 vaccines alter human DNA, scientist warns.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 13800,
+        "label": 0
+    },
+    {
+        "text": "Politicians using hidden subliminal messages in speeches.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 12100,
+        "label": 0
+    },
+    {
+        "text": "Global elites secretly control world events from underground bunkers.",
+        "source_reliability": "Infowars",
+        "social_reactions": 15000,
+        "label": 0
+    },
+    {
+        "text": "Secret cabal of billionaires plans to bankrupt the global economy.",
+        "source_reliability": "Natural News",
+        "social_reactions": 14300,
+        "label": 0
+    },
+    {
+        "text": "COVID-19 was a government experiment to track people through vaccines.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 13700,
+        "label": 0
+    },
+    {
+        "text": "The moon landing was staged by NASA in a Hollywood studio.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 12500,
+        "label": 0
+    },
+    {
+        "text": "5G technology is being used to control people's minds.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 13200,
+        "label": 0
+    },
+    {
+        "text": "The government plans to implant microchips in every citizen through mandatory vaccines.",
+        "source_reliability": "Infowars",
+        "social_reactions": 14500,
+        "label": 0
+    },
+    {
+        "text": "World leaders have secretly sold their souls to extraterrestrial beings in exchange for power.",
+        "source_reliability": "Natural News",
+        "social_reactions": 13000,
+        "label": 0
+    },
+    {
+        "text": "Secret global banking cartel is controlling every major currency in the world.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 11800,
+        "label": 0
+    },
+    {
+        "text": "The COVID-19 pandemic was planned to bring about a new world order.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 14000,
+        "label": 0
+    },
+    {
+        "text": "Aliens are secretly controlling the world's financial markets to ensure their dominance.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 12600,
+        "label": 0
+    },
+    {
+        "text": "World government plans to enforce a single global religion through mind control.",
+        "source_reliability": "Infowars",
+        "social_reactions": 13500,
+        "label": 0
+    },
+    {
+        "text": "US government plans to launch mass surveillance satellites that track every citizen.",
+        "source_reliability": "Natural News",
+        "social_reactions": 12000,
+        "label": 0
+    },
+    {
+        "text": "Scientists have uncovered evidence that the Earth is flat, and governments are hiding it.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 12600,
+        "label": 0
+    },
+    {
+        "text": "Aliens are controlling the media to manipulate human thought and behavior.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 11000,
+        "label": 0
+    },
+    {
+        "text": "The world is secretly being controlled by a group of elite families through their financial power.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 12800,
+        "label": 0
+    },
+    {
+        "text": "New evidence proves the Earth is actually flat, not round.",
+        "source_reliability": "Natural News",
+        "social_reactions": 25000,
+        "label": 0
+    },
+    {
+        "text": "Secret government program revealed: 5G towers used for mind control.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 20000,
+        "label": 0
+    },
+    {
+        "text": "Elites controlling the world through hidden messages in music videos.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 19000,
+        "label": 0
+    },
+    {
+        "text": "COVID-19 vaccines contain microchips for tracking citizens.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 22000,
+        "label": 0
+    },
+    {
+        "text": "Aliens have infiltrated global governments and control key decisions.",
+        "source_reliability": "Infowars",
+        "social_reactions": 24000,
+        "label": 0
+    },
+    {
+        "text": "Secret space fleet operated by the Pentagon revealed in leaked documents.",
+        "source_reliability": "Natural News",
+        "social_reactions": 18000,
+        "label": 0
+    },
+    {
+        "text": "Bill Gates funds secret plan to dim the sun and control the weather.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 21000,
+        "label": 0
+    },
+    {
+        "text": "New world order plans exposed: elite families meet in secret bunker.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 23000,
+        "label": 0
+    },
+    {
+        "text": "Big Pharma suppressing natural cancer cure discovered in the Amazon.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 19500,
+        "label": 0
+    },
+    {
+        "text": "Quantum AI computer predicts end of the world in 2030.",
+        "source_reliability": "Infowars",
+        "social_reactions": 24500,
+        "label": 0
+    },
+    {
+        "text": "Aliens have infiltrated world governments and are controlling leaders.",
+        "source_reliability": "Infowars",
+        "social_reactions": 15000,
+        "label": 0
+    },
+    {
+        "text": "Coronavirus is a man-made virus engineered to reduce the global population.",
+        "source_reliability": "Natural News",
+        "social_reactions": 14500,
+        "label": 0
+    },
+    {
+        "text": "Secret society of world leaders plans to impose martial law by 2025.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 13800,
+        "label": 0
+    },
+    {
+        "text": "Government is implanting microchips in vaccines to track citizens.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 14200,
+        "label": 0
+    },
+    {
+        "text": "The moon landing was faked by NASA to cover up extraterrestrial discovery.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 13000,
+        "label": 0
+    },
+    {
+        "text": "Aliens have infiltrated world governments and are controlling leaders.",
+        "source_reliability": "Infowars",
+        "social_reactions": 15000,
+        "label": 0
+    },
+    {
+        "text": "Coronavirus is a man-made virus engineered to reduce the global population.",
+        "source_reliability": "Natural News",
+        "social_reactions": 14500,
+        "label": 0
+    },
+    {
+        "text": "Secret society of world leaders plans to impose martial law by 2025.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 13800,
+        "label": 0
+    },
+    {
+        "text": "Government is implanting microchips in vaccines to track citizens.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 14200,
+        "label": 0
+    },
+    {
+        "text": "The moon landing was faked by NASA to cover up extraterrestrial discovery.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 13000,
+        "label": 0
+    },
+    {
+        "text": "The world is secretly controlled by lizard people.",
+        "source_reliability": "Infowars",
+        "social_reactions": 16000,
+        "label": 0
+    },
+    {
+        "text": "Politicians are hiding evidence of an imminent alien invasion.",
+        "source_reliability": "Natural News",
+        "social_reactions": 15500,
+        "label": 0
+    },
+    {
+        "text": "U.S. government working on new weapon to control the weather.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 15000,
+        "label": 0
+    },
+    {
+        "text": "Famous celebrities revealed as part of a global elite conspiracy.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 14500,
+        "label": 0
+    },
+    {
+        "text": "Global warming is a hoax created by global elites for profit.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 14000,
+        "label": 0
+    },
+    {
+        "text": "Governments are secretly implanting microchips in children for population control.",
+        "source_reliability": "Infowars",
+        "social_reactions": 15800,
+        "label": 0
+    },
+    {
+        "text": "Scientists claim the Earth is flat and that it's being hidden by the government.",
+        "source_reliability": "Natural News",
+        "social_reactions": 15000,
+        "label": 0
+    },
+    {
+        "text": "Aliens have been living among us for decades and are controlling governments.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 16000,
+        "label": 0
+    },
+    {
+        "text": "The moon landing was staged by NASA to hide alien encounters.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 14200,
+        "label": 0
+    },
+    {
+        "text": "Governments are using the COVID-19 pandemic to implant tracking devices in citizens.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 15000,
+        "label": 0
+    },
+    {
+        "text": "Pyramids are not man-made but were built by ancient aliens.",
+        "source_reliability": "Infowars",
+        "social_reactions": 16300,
+        "label": 0
+    },
+    {
+        "text": "The elite are using vaccines to control the global population.",
+        "source_reliability": "Natural News",
+        "social_reactions": 15500,
+        "label": 0
+    },
+    {
+        "text": "Weather manipulation technology is being used to create natural disasters for profit.",
+        "source_reliability": "Before It's News",
+        "social_reactions": 14800,
+        "label": 0
+    },
+    {
+        "text": "Reptilian overlords secretly control the world's most powerful nations.",
+        "source_reliability": "YourNewsWire",
+        "social_reactions": 14000,
+        "label": 0
+    },
+    {
+        "text": "Scientists discovered a hidden continent beneath Antarctica that is controlled by aliens.",
+        "source_reliability": "The Gateway Pundit",
+        "social_reactions": 13500,
+        "label": 0
+    }
+]

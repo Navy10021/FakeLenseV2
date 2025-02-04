@@ -15,20 +15,20 @@ To address these challenges, **FakeLenseV2** introduces an AI-powered fake news 
 🔗 **FakeLenseV1 GitHub Repository:** [FakeLenseV1](https://github.com/Navy10021/FakeLense)
 
 Building on this foundation, **FakeLenseV2** integrates **reinforcement learning (RL)** methodologies to **further enhance detection capabilities**. Unlike its predecessor, **FakeLenseV2** employs:
-  - ✅ **BERT-based embeddings** for robust text representation.
+  - ✅ **LLMs-based embeddings** for robust text representation.
   - ✅ **Deep Q-Networks (DQN)** with **residual learning** to refine classification strategies dynamically.
   - ✅ **An adaptive reward mechanism** to improve long-term learning efficiency.
 
 By leveraging RL-driven adaptive learning, **FakeLenseV2** dynamically adjusts to new disinformation patterns, optimizes its classification policy, and strengthens its resilience against adversarial manipulation. This results in higher accuracy, improved generalization, and enhanced real-time misinformation detection—marking a significant leap forward in AI-driven fact-checking technologies.
 
 ## 2. Key Features
-### 2.1 NLP-Based Text Representation
+### 2.1 LLMs-Based Text Representation
   - Leverages **BERT** and **RoBERTa** to generate contextual embeddings for robust feature extraction.
   - Incorporates **semantic understanding** of news content, surpassing traditional bag-of-words or TF-IDF methods.
   - Enables **fine-grained text analysis**, capturing nuanced language used in deceptive content.
     
 ### 2.2 Deep Reinforcement Learning for Adaptive Classification
-  - Implements a **Deep Q-Network (DQN)** with residual connections to improve training stability.
+  - Implements a **Deep Q-Network (DQN)** with **residual connections** to improve training stability.
   - Uses **Double DQN (DDQN)** to mitigate the overestimation bias in Q-learning.
   - Employs **target network smoothing**, reducing volatility in the learning process.
   - **Reward shaping** mechanism incentivizes correct classifications and penalizes overconfidence in incorrect predictions.

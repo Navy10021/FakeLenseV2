@@ -2,7 +2,9 @@
 
 <div align="center">
 
-# FakeLense: An AI-Powered Fake News Detection System Integrating NLP and Reinforcement Learning
+# FakeLenseV2: Fake News Detection Model Integrating NLP and Reinforcement Learning
+</div>
+
 ## 1. Introduction
 Fake news and disinformation pose significant threats to societies, influencing public opinion and undermining trust in credible information sources. Traditional machine learning approaches, while effective, often lack adaptability and fail to generalize well to evolving misinformation patterns.
 FakeLense is an advanced AI-driven fake news detection framework that integrates Natural Language Processing (NLP) and Deep Reinforcement Learning (DRL) techniques to enhance detection accuracy and adaptability.

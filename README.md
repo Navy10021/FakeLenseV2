@@ -44,7 +44,7 @@ By leveraging RL-driven adaptive learning, **FakeLenseV2** dynamically adjusts t
   - Can be deployed as an API for integration into social media platforms and fact-checking systems.
 
 ## 3. System Architecture
-FakeLenseV2 consists of three primary components:
+**FakeLenseV2** consists of three primary components:
 ### 3.1 Feature Extraction
   - **Text Tokenization & Embedding**: Uses BERT or RoBERTa to encode textual content into a dense vector representation. Supports pooling mechanisms to derive sentence-level embeddings.
   - **Source Credibility Encoding**: Maps news sources to predefined reliability scores based on media bias ratings. Assigns higher trust scores to reputable sources (e.g., Reuters, BBC) and lower scores to sensationalist outlets.
@@ -57,9 +57,9 @@ FakeLenseV2 consists of three primary components:
   - **Action Space & Rewards**:
     1) Action Space: Assigns labels {Real (2), Suspicious (1), Fake (0)}.
     2) Reward Mechanism:
-        Correct classification → +1 reward
-        Incorrect classification → Negative penalty proportional to confidence
-        High-confidence incorrect prediction → Larger penalty to discourage overfitting
+        - Correct classification → +1 reward
+        - Incorrect classification → Negative penalty proportional to confidence
+        - High-confidence incorrect prediction → Larger penalty to discourage overfitting
   - **Double DQN & Target Network Smoothing**:
     1) Uses a target Q-network updated via soft target updates (τ = 0.005).
     2) Reduces fluctuations in Q-values, ensuring smooth convergence.

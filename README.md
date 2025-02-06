@@ -23,7 +23,7 @@ By leveraging RL-driven adaptive learning, **FakeLenseV2** dynamically adjusts t
 
 ## 2. Key Features
 ### 2.1 LLMs-Based Text Representation
-  - Leverages **BERT** and **RoBERTa** to generate contextual embeddings for robust feature extraction.
+  - Leverages **LLMs (BERT- or GPT-based models)** to generate contextual embeddings, enabling robust feature extraction for enhanced misinformation detection.
   - Incorporates **semantic understanding** of news content, surpassing traditional bag-of-words or TF-IDF methods.
   - Enables **fine-grained text analysis**, capturing nuanced language used in deceptive content.
     

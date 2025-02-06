@@ -115,7 +115,7 @@ eval_agent()
 ### 6.2 Benchmarking Results
 
 ### 6.3 Fake News Detection Performance Evaluation Results
- Experimental results demonstrated that **FakeLenseV2** achieved a **high detection accuracy of over 97%**, validating its effectiveness in identifying fake news. By incorporating metadata such as source credibility, viewership metrics, and trustworthiness evaluations into the learning process, the model's precision has been further enhanced. This advanced approach enables more sophisticated detection of misinformation across various platforms. As a result, **FakeLenseV2** is expected to serve as a highly effective **fake news detection tool**, contributing to national intelligence capabilities and the protection of strategic interests.
+ Experimental results demonstrated that **FakeLenseV2** achieved a **high detection accuracy of over 97%**, validating its effectiveness in identifying fake news. By incorporating metadata such as source credibility, viewership metrics, and trustworthiness evaluations into the learning process, the model's precision has been further enhanced. This advanced approach enables more sophisticated detection of misinformation across various platforms. As a result, **FakeLenseV2** is expected to serve as a highly effective fake news detection tool, contributing to national intelligence capabilities and the protection of strategic interests.
 
 
 

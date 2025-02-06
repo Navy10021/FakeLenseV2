@@ -55,7 +55,8 @@ By leveraging RL-driven adaptive learning, **FakeLenseV2** dynamically adjusts t
     1) Uses a three-layer neural network with residual connections to prevent information loss.
     2) Implements Layer Normalization to stabilize training.
   - **Action Space & Rewards**:
-    1) Action Space: Assigns labels {Real (2), Suspicious (1), Fake (0)}.
+    1) Action Space: 
+        - Assigns labels {Real (2), Suspicious (1), Fake (0)}.
     2) Reward Mechanism:
         - Correct classification → +1 reward
         - Incorrect classification → Negative penalty proportional to confidence

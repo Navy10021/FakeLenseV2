@@ -2,5 +2,28 @@
 
 from .feature_extraction import FeatureExtractor
 from .config import get_default_config, SOURCE_RELIABILITY_MAPPING
+from .validators import DataValidator, ValidationError, validate_json_file
+from .exceptions import (
+    FakeLenseError,
+    ModelLoadError,
+    DataLoadError,
+    ValidationError,
+    TrainingError,
+    InferenceError,
+    ConfigurationError
+)
 
-__all__ = ["FeatureExtractor", "get_default_config", "SOURCE_RELIABILITY_MAPPING"]
+__all__ = [
+    "FeatureExtractor",
+    "get_default_config",
+    "SOURCE_RELIABILITY_MAPPING",
+    "DataValidator",
+    "ValidationError",
+    "validate_json_file",
+    "FakeLenseError",
+    "ModelLoadError",
+    "DataLoadError",
+    "TrainingError",
+    "InferenceError",
+    "ConfigurationError"
+]

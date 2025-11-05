@@ -57,8 +57,41 @@ Building on this foundation, **FakeLenseV2** introduces:
 ### 4. **Production-Ready Architecture**
 - GPU-accelerated for real-time detection
 - Batch inference support for large-scale monitoring
-- RESTful API deployment capability
+- **FastAPI REST API** with automatic documentation
+- **Docker support** for easy deployment
+- **CI/CD pipeline** with automated testing
 - Integration-ready for social media platforms and fact-checking systems
+
+---
+
+## 📁 Project Structure
+
+```
+FakeLenseV2/
+├── code/
+│   ├── models/              # Neural network architectures
+│   │   ├── dqn.py          # DQN and DQNResidual models
+│   │   └── vectorizer.py   # BERT/RoBERTa text embedding
+│   ├── agents/              # Reinforcement learning agents
+│   │   └── fake_news_agent.py
+│   ├── utils/               # Utility modules
+│   │   ├── config.py       # Configuration management
+│   │   ├── feature_extraction.py
+│   │   ├── validators.py   # Data validation
+│   │   └── exceptions.py   # Custom exceptions
+│   ├── train.py             # Training pipeline
+│   ├── inference.py         # Inference engine
+│   ├── main.py              # CLI interface
+│   └── api_server.py        # FastAPI REST API
+├── tests/                   # Unit tests
+├── data/                    # Training and test data
+├── models/                  # Saved model checkpoints
+├── Dockerfile               # Docker configuration
+├── docker-compose.yml       # Docker Compose setup
+├── requirements.txt         # Python dependencies
+├── setup.py                 # Package installation
+└── README_USAGE.md         # Detailed usage guide
+```
 
 ---
 
@@ -218,7 +251,11 @@ conda activate fakelense
 ### Step 3: Install Dependencies
 
 ```bash
+# Install dependencies
 pip install -r requirements.txt
+
+# Or install as a package (recommended)
+pip install -e .
 ```
 
 **Core Dependencies:**
@@ -231,115 +268,109 @@ scikit-learn>=1.0.0
 matplotlib>=3.4.0
 seaborn>=0.11.0
 tqdm>=4.62.0
+fastapi>=0.100.0
+uvicorn>=0.23.0
+pydantic>=2.0.0
+```
+
+### Alternative: Docker Installation
+
+```bash
+# Using Docker Compose (recommended)
+docker-compose up fakelense-api
+
+# Or build manually
+docker build -t fakelensev2:latest .
+docker run -p 8000:8000 fakelensev2:latest
 ```
 
 ---
 
 ## 💻 Usage
 
-### 1. Training the Agent
+> 📖 **For detailed usage examples, see [README_USAGE.md](README_USAGE.md)**
 
-Train FakeLenseV2 on your dataset with custom parameters:
+### Quick Start
+
+#### 1. Command Line Interface
+
+```bash
+# Training
+python -m code.main train --config config.example.json
+
+# Evaluation
+python -m code.main evaluate --model models/best_model.pth
+
+# Single Prediction
+python -m code.main infer \
+    --model models/best_model.pth \
+    --text "Scientists discover new planet..." \
+    --source "Reuters" \
+    --reactions 5000
+```
+
+#### 2. Python API
 
 ```python
-from model import train_agent
+from code.inference import InferenceEngine
 
-# Basic training
-train_agent(num_episodes=500, patience=15)
+# Initialize engine (loads model once)
+engine = InferenceEngine("models/best_model.pth")
 
-# Advanced training with custom parameters
-train_agent(
-    num_episodes=1000,
-    batch_size=64,
-    learning_rate=1e-4,
-    gamma=0.99,
-    epsilon_start=1.0,
-    epsilon_end=0.01,
-    epsilon_decay=0.995,
-    patience=20,
-    save_path='./checkpoints/best_model.pth'
+# Make prediction
+prediction = engine.predict(
+    text="Scientists at NASA announce discovery...",
+    source="Reuters",
+    social_reactions=5000
 )
+
+# 0=Fake, 1=Suspicious, 2=Real
+print(f"Prediction: {prediction}")
 ```
 
-### 2. Making Predictions
+#### 3. REST API Server
 
-Classify news articles in real-time:
+```bash
+# Start server
+python -m code.api_server
 
-```python
-from model import infer
-
-# Example 1: Breaking news
-text = "Scientists at NASA announce discovery of Earth-like planet with potential signs of life."
-source = "CNN"
-social_reactions = 15000
-
-result = infer(text, source, social_reactions)
-print(f"Prediction: {result}")  # Output: 2 (Real)
-
-# Example 2: Suspicious claim
-text = "Miracle cure for all diseases discovered by local doctor, pharmaceutical companies hiding the truth!"
-source = "UnknownBlog"
-social_reactions = 250000  # High viral spread
-
-result = infer(text, source, social_reactions)
-print(f"Prediction: {result}")  # Output: 0 (Fake) or 1 (Suspicious)
+# Or using Docker
+docker-compose up fakelense-api
 ```
 
-### 3. Batch Prediction
-
-Process multiple articles at once:
-
-```python
-from model import batch_infer
-import pandas as pd
-
-# Load dataset
-df = pd.read_csv('news_dataset.csv')
-articles = df['text'].tolist()
-sources = df['source'].tolist()
-social_metrics = df['engagement'].tolist()
-
-# Batch inference
-predictions = batch_infer(articles, sources, social_metrics)
-
-# Add predictions to dataframe
-df['prediction'] = predictions
-df['label'] = df['prediction'].map({0: 'Fake', 1: 'Suspicious', 2: 'Real'})
-```
-
-### 4. Model Evaluation
-
-Evaluate model performance on test dataset:
-
-```python
-from model import eval_agent
-
-# Comprehensive evaluation
-metrics = eval_agent(test_data_path='./data/test.csv')
-
-# Output metrics
-print(f"Accuracy: {metrics['accuracy']:.4f}")
-print(f"Precision: {metrics['precision']:.4f}")
-print(f"Recall: {metrics['recall']:.4f}")
-print(f"F1-Score: {metrics['f1_score']:.4f}")
-```
-
-### 5. API Deployment (Optional)
-
-Deploy as a REST API service:
-
-```python
-# Run the API server
-python api_server.py --port 8000
-
-# Make requests
+**Make API requests:**
+```bash
 curl -X POST http://localhost:8000/predict \
   -H "Content-Type: application/json" \
   -d '{
-    "text": "Breaking news article text here...",
+    "text": "Breaking news article...",
     "source": "Reuters",
     "social_reactions": 5000
   }'
+```
+
+**Response:**
+```json
+{
+  "prediction": 2,
+  "label": "Real News",
+  "confidence": null
+}
+```
+
+**API Documentation:** Visit http://localhost:8000/docs for interactive Swagger UI
+
+#### 4. Docker Deployment
+
+```bash
+# Start API server
+docker-compose up fakelense-api
+
+# Run training (one-time)
+docker-compose run --rm fakelense-train
+
+# View logs
+docker-compose logs -f fakelense-api
 ```
 
 ---
@@ -453,41 +484,47 @@ train_data, test_data = prepare_dataset(
 
 ---
 
+## 📚 Documentation
+
+- **[README_USAGE.md](README_USAGE.md)** - Detailed usage guide with examples
+- **[IMPROVEMENTS.md](IMPROVEMENTS.md)** - Complete changelog and improvements
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contribution guidelines
+- **[API Documentation](http://localhost:8000/docs)** - Interactive API docs (when server is running)
+
+---
+
 ## 🤝 Contributing
 
-We welcome contributions from the community! Here's how you can help:
+We welcome contributions from the community!
 
-### Ways to Contribute
+> 📖 **See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines**
 
-- 🐛 **Report bugs** via [GitHub Issues](https://github.com/Navy10021/FakeLenseV2/issues)
-- 💡 **Suggest features** or improvements
-- 📖 **Improve documentation**
-- 🔧 **Submit pull requests**
-
-### Development Setup
+### Quick Start for Contributors
 
 ```bash
-# Fork and clone the repository
+# 1. Fork and clone
 git clone https://github.com/YOUR_USERNAME/FakeLenseV2.git
 cd FakeLenseV2
 
-# Create a new branch
+# 2. Install development dependencies
+pip install -e ".[dev]"
+
+# 3. Run tests
+pytest tests/ -v
+
+# 4. Create a branch and make changes
 git checkout -b feature/your-feature-name
 
-# Make changes and commit
-git add .
-git commit -m "Description of your changes"
-
-# Push and create pull request
-git push origin feature/your-feature-name
+# 5. Submit pull request
 ```
 
-### Code Style
+### Ways to Contribute
 
-- Follow PEP 8 guidelines
-- Add docstrings to all functions
-- Include unit tests for new features
-- Update documentation accordingly
+- 🐛 Report bugs via [Issues](https://github.com/Navy10021/FakeLenseV2/issues)
+- 💡 Suggest features
+- 📖 Improve documentation
+- 🔧 Submit pull requests
+- ⭐ Star the repository!
 
 ---
 

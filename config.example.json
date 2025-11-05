@@ -1,0 +1,22 @@
+{
+  "memory_size": 2000,
+  "learning_rate": 0.0005,
+  "batch_size": 64,
+  "gamma": 0.99,
+  "epsilon": 1.0,
+  "epsilon_decay": 0.995,
+  "epsilon_min": 0.01,
+  "update_target_freq": 10,
+  "tau": 0.005,
+  "use_residual": true,
+  "dropout": 0.2,
+  "num_episodes": 500,
+  "patience": 15,
+  "state_size": 770,
+  "action_size": 3,
+  "model_save_path": "./models/best_model.pth",
+  "train_data_path": "./data/train_data.json",
+  "test_data_path": "./data/test_data.json",
+  "model_name": "bert-base-uncased",
+  "max_seq_length": 512
+}

@@ -1,97 +1,293 @@
-# Inference
-import torch
+"""Inference and evaluation module for FakeNewsAgent"""
+
+import os
 import json
+import logging
+from typing import List, Dict, Any, Union
+
+import torch
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report, confusion_matrix
-from fake_news_agent import FakeNewsAgent
-from feature_extraction import FeatureExtractor
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    classification_report,
+    confusion_matrix
+)
 
-# Inference Process
-def infer(agent, text, source_reliability, social_reactions):
-    features = FeatureExtractor().extract_features(text, source_reliability, social_reactions)
-    features = torch.FloatTensor(features).unsqueeze(0).to(agent.device)
-    agent.model.load_state_dict(torch.load('./models/best_model_v2.pth', map_location=agent.device))
-    agent.model.eval()
-    with torch.no_grad():
-        action = agent.act(features)
-    return action  
+from code.agents.fake_news_agent import FakeNewsAgent
+from code.utils.feature_extraction import FeatureExtractor
+from code.utils.config import get_default_config
 
-    # A function that quantifies the trust level of media companies
-def convert_source_reliability(source_reliability: str) -> float:
-    """Converts source reliability to a float based on the US news outlet."""
-    # Mapping trustworthiness with actual media outlets
-    reliability_mapping = {
-        "The New York Times": 0.90,
-        "The Washington Post": 0.85,
-        "CNN": 0.80,
-        "BBC": 0.85,
-        "NPR": 0.90,
-        "Reuters": 0.90,
-        "The Wall Street Journal": 0.85,
-        "USA Today": 0.75,
-        "Fox News": 0.60,
-        "Bloomberg": 0.85,
-        "The Guardian": 0.80,
-        "Los Angeles Times": 0.80,
-        "New York Post": 0.60,
-        "HuffPost": 0.70,
-        "Associated Press": 0.90
-    }
-    return reliability_mapping.get(source_reliability, 0.50)
+# Setup logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
-def eval_agent(agent, data):
-    # Perform inference and collect predictions
-    y_true = []
-    y_pred = []
 
-    print("\n========== ON TEST DATASET ==========")
-    for sample in test_data:
-        text = sample["text"]
-        source_reliability = convert_source_reliability(sample["source_reliability"])
-        social_reactions = sample["social_reactions"]
-        label = sample["label"]
+class InferenceEngine:
+    """
+    Optimized inference engine for fake news detection.
+    Loads the model once and reuses it for multiple predictions.
+    """
 
-        prediction = infer(agent, text, source_reliability, social_reactions)
-        y_true.append(label)
-        y_pred.append(prediction)
-        print(f"Article: {text}\nPrediction: {'Real News' if prediction == 2 else 'Suspicious News' if prediction == 1 else 'Fake News'}\n")
+    def __init__(
+        self,
+        model_path: str,
+        config: Dict[str, Any] = None
+    ):
+        """
+        Initialize the inference engine.
 
-    # Compute performance metrics
-    acc = accuracy_score(y_true, y_pred)
-    precision = precision_score(y_true, y_pred, average='micro')
-    recall = recall_score(y_true, y_pred, average='micro')
+        Args:
+            model_path: Path to the trained model
+            config: Configuration dictionary (optional)
+        """
+        self.config = config or get_default_config()
+        self.model_path = model_path
 
-    print("\n========== Performance Metrics ==========")
-    print(f"Accuracy: {acc:.4f}")
-    print(f"Precision: {precision:.4f}")
-    print(f"Recall: {recall:.4f}")
-    print("\nClassification Report:\n", classification_report(y_true, y_pred))
+        # Initialize feature extractor
+        from code.models.vectorizer import BaseVectorizer
+        vectorizer = BaseVectorizer(model_name=self.config.get("model_name", "bert-base-uncased"))
+        self.feature_extractor = FeatureExtractor(vectorizer=vectorizer)
 
-    # Confusion Matrix Visualization
-    cm = confusion_matrix(y_true, y_pred)
+        # Initialize and load agent
+        state_size = self.config.get("state_size", 770)
+        action_size = self.config.get("action_size", 3)
+        self.agent = FakeNewsAgent(state_size, action_size, self.config)
+        self.agent.load(model_path)
+        self.agent.epsilon = 0.0  # No exploration during inference
 
-    plt.figure(figsize=(6, 5))
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Fake News", "Suspicious News", "Real News"], yticklabels=["Fake News", "Suspicious News", "Real News"])
-    plt.xlabel("Predicted")
-    plt.ylabel("Actual")
-    plt.title("Confusion Matrix")
-    plt.show()
-    
-# Load test data
-file_path = "./data/test_data.json"
-with open(file_path, "r", encoding="utf-8") as f:
-    test_data = json.load(f)
+        logging.info(f"Loaded model from {model_path}")
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Using device: {device}")
+    def predict(
+        self,
+        text: str,
+        source: str,
+        social_reactions: float
+    ) -> int:
+        """
+        Predict the class of a single news article.
 
-# Define State and Action Sizes
-state_size = 768 + 2    # BERT vector + source reliability + social reactions
-action_size = 3         # Fake or Real or Suspicious
+        Args:
+            text: Article text content
+            source: News source name
+            social_reactions: Number of social media reactions
 
-# Initialize the reinforcement learning agent
-agent = FakeNewsAgent(state_size, action_size)
+        Returns:
+            Predicted class (0: Fake, 1: Suspicious, 2: Real)
+        """
+        features = self.feature_extractor.extract_features(text, source, social_reactions)
+        features_tensor = torch.FloatTensor(features).unsqueeze(0).to(self.agent.device)
 
-# Eval the agent
-eval_agent(agent, test_data)
+        with torch.no_grad():
+            action = self.agent.act(features_tensor)
+
+        return action
+
+    def predict_batch(
+        self,
+        articles: List[Dict[str, Any]]
+    ) -> List[int]:
+        """
+        Predict the class of multiple news articles.
+
+        Args:
+            articles: List of dictionaries with keys: text, source_reliability, social_reactions
+
+        Returns:
+            List of predicted classes
+        """
+        predictions = []
+        for article in articles:
+            pred = self.predict(
+                article["text"],
+                article.get("source_reliability", "Unknown"),
+                article.get("social_reactions", 0)
+            )
+            predictions.append(pred)
+        return predictions
+
+
+class Evaluator:
+    """
+    Evaluation class for computing metrics and visualizations.
+    """
+
+    def __init__(self, inference_engine: InferenceEngine):
+        """
+        Initialize the evaluator.
+
+        Args:
+            inference_engine: InferenceEngine instance
+        """
+        self.engine = inference_engine
+
+    def evaluate(
+        self,
+        test_data: List[Dict[str, Any]],
+        verbose: bool = True
+    ) -> Dict[str, float]:
+        """
+        Evaluate the model on test data.
+
+        Args:
+            test_data: List of test samples with labels
+            verbose: Whether to print detailed results
+
+        Returns:
+            Dictionary containing evaluation metrics
+        """
+        y_true = []
+        y_pred = []
+
+        if verbose:
+            logging.info("\n" + "=" * 50)
+            logging.info("EVALUATING ON TEST DATASET")
+            logging.info("=" * 50)
+
+        for sample in test_data:
+            prediction = self.engine.predict(
+                sample["text"],
+                sample.get("source_reliability", "Unknown"),
+                sample.get("social_reactions", 0)
+            )
+
+            y_true.append(sample["label"])
+            y_pred.append(prediction)
+
+            if verbose:
+                label_map = {0: "Fake News", 1: "Suspicious News", 2: "Real News"}
+                logging.info(f"Article: {sample['text'][:80]}...")
+                logging.info(f"Prediction: {label_map[prediction]}")
+                logging.info(f"Ground Truth: {label_map[sample['label']]}")
+                logging.info("-" * 50)
+
+        # Compute metrics
+        metrics = {
+            "accuracy": accuracy_score(y_true, y_pred),
+            "precision": precision_score(y_true, y_pred, average='macro', zero_division=0),
+            "recall": recall_score(y_true, y_pred, average='macro', zero_division=0),
+            "f1_score": f1_score(y_true, y_pred, average='macro', zero_division=0)
+        }
+
+        if verbose:
+            logging.info("\n" + "=" * 50)
+            logging.info("PERFORMANCE METRICS")
+            logging.info("=" * 50)
+            logging.info(f"Accuracy:  {metrics['accuracy']:.4f}")
+            logging.info(f"Precision: {metrics['precision']:.4f}")
+            logging.info(f"Recall:    {metrics['recall']:.4f}")
+            logging.info(f"F1-Score:  {metrics['f1_score']:.4f}")
+            logging.info("\n" + "=" * 50)
+            logging.info("CLASSIFICATION REPORT")
+            logging.info("=" * 50)
+            print(classification_report(
+                y_true,
+                y_pred,
+                target_names=["Fake News", "Suspicious News", "Real News"]
+            ))
+
+        # Visualize confusion matrix
+        self._plot_confusion_matrix(y_true, y_pred)
+
+        return metrics
+
+    def _plot_confusion_matrix(self, y_true: List[int], y_pred: List[int]) -> None:
+        """
+        Plot and save confusion matrix.
+
+        Args:
+            y_true: True labels
+            y_pred: Predicted labels
+        """
+        cm = confusion_matrix(y_true, y_pred)
+
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(
+            cm,
+            annot=True,
+            fmt="d",
+            cmap="Blues",
+            xticklabels=["Fake News", "Suspicious News", "Real News"],
+            yticklabels=["Fake News", "Suspicious News", "Real News"],
+            cbar_kws={'label': 'Count'}
+        )
+        plt.xlabel("Predicted Label", fontsize=12)
+        plt.ylabel("True Label", fontsize=12)
+        plt.title("Confusion Matrix", fontsize=14, fontweight="bold")
+        plt.tight_layout()
+
+        # Save plot
+        plot_path = "./models/confusion_matrix.png"
+        os.makedirs(os.path.dirname(plot_path), exist_ok=True)
+        plt.savefig(plot_path, dpi=300)
+        logging.info(f"Confusion matrix saved to {plot_path}")
+
+        plt.show()
+
+
+def evaluate_from_config(config_path: str = None, model_path: str = None) -> Dict[str, float]:
+    """
+    Evaluate the model using configuration.
+
+    Args:
+        config_path: Path to JSON configuration file (optional)
+        model_path: Path to trained model (optional)
+
+    Returns:
+        Dictionary containing evaluation metrics
+    """
+    # Load configuration
+    if config_path and os.path.exists(config_path):
+        with open(config_path, "r") as f:
+            config = json.load(f)
+        logging.info(f"Loaded configuration from {config_path}")
+    else:
+        config = get_default_config()
+        logging.info("Using default configuration")
+
+    # Determine model path
+    model_path = model_path or config.get("model_save_path", "./models/best_model.pth")
+
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model not found at {model_path}")
+
+    # Load test data
+    test_data_path = config.get("test_data_path", "./data/test_data.json")
+    with open(test_data_path, "r", encoding="utf-8") as f:
+        test_data = json.load(f)
+    logging.info(f"Loaded {len(test_data)} test samples from {test_data_path}")
+
+    # Initialize inference engine and evaluator
+    engine = InferenceEngine(model_path, config)
+    evaluator = Evaluator(engine)
+
+    # Evaluate
+    metrics = evaluator.evaluate(test_data, verbose=True)
+
+    return metrics
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Evaluate FakeLenseV2 model")
+    parser.add_argument(
+        "--config",
+        type=str,
+        default=None,
+        help="Path to configuration JSON file"
+    )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default=None,
+        help="Path to trained model file"
+    )
+    args = parser.parse_args()
+
+    evaluate_from_config(args.config, args.model)

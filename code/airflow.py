@@ -101,4 +101,4 @@ load_text_task = PythonOperator(
 )
 
 # 태스크 의존성: extract → transform → validate → load 순서로 실행
-# extract_text_task >> transform_text_task >> validate_text_task >> load_text_task
+extract_text_task >> transform_text_task >> validate_text_task >> load_text_task

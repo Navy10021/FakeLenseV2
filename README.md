@@ -58,6 +58,10 @@ Building on this foundation, **FakeLenseV2** introduces:
 - GPU-accelerated for real-time detection
 - Batch inference support for large-scale monitoring
 - **FastAPI REST API** with automatic documentation
+  - **Confidence scoring** for all predictions
+  - **Structured JSON logging** with request tracking
+  - **Rate limiting** (100 req/min per IP)
+  - **CORS support** for cross-origin requests
 - **Docker support** for easy deployment
 - **CI/CD pipeline** with automated testing
 - Integration-ready for social media platforms and fact-checking systems
@@ -271,6 +275,7 @@ tqdm>=4.62.0
 fastapi>=0.100.0
 uvicorn>=0.23.0
 pydantic>=2.0.0
+slowapi>=0.1.9  # For rate limiting
 ```
 
 ### Alternative: Docker Installation
@@ -354,11 +359,19 @@ curl -X POST http://localhost:8000/predict \
 {
   "prediction": 2,
   "label": "Real News",
-  "confidence": null
+  "confidence": 0.95,
+  "all_probabilities": {
+    "fake": 0.02,
+    "suspicious": 0.03,
+    "real": 0.95
+  },
+  "request_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 }
 ```
 
-**API Documentation:** Visit http://localhost:8000/docs for interactive Swagger UI
+**API Documentation:**
+- **Swagger UI**: http://localhost:8000/docs
+- **Detailed Examples**: See [API_EXAMPLES.md](API_EXAMPLES.md)
 
 #### 4. Docker Deployment
 

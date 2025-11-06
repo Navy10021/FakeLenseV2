@@ -88,26 +88,88 @@ class InferenceEngine:
 
         return action
 
+    def predict_with_confidence(
+        self,
+        text: str,
+        source: str,
+        social_reactions: float
+    ) -> Dict[str, Any]:
+        """
+        Predict the class of a single news article with confidence scores.
+
+        Args:
+            text: Article text content
+            source: News source name
+            social_reactions: Number of social media reactions
+
+        Returns:
+            Dictionary containing:
+                - prediction: Predicted class (0: Fake, 1: Suspicious, 2: Real)
+                - confidence: Confidence score for the prediction (0-1)
+                - all_probabilities: Dictionary with probabilities for all classes
+                - label: Human-readable label
+        """
+        features = self.feature_extractor.extract_features(text, source, social_reactions)
+        features_tensor = torch.FloatTensor(features).unsqueeze(0).to(self.agent.device)
+
+        with torch.no_grad():
+            # Get Q-values from the model
+            q_values = self.agent.model(features_tensor)
+
+            # Convert Q-values to probabilities using softmax
+            probabilities = torch.softmax(q_values, dim=1)
+
+            # Get prediction and confidence
+            prediction = torch.argmax(q_values, dim=1).item()
+            confidence = probabilities[0][prediction].item()
+
+            # Get all class probabilities
+            all_probs = {
+                "fake": float(probabilities[0][0]),
+                "suspicious": float(probabilities[0][1]),
+                "real": float(probabilities[0][2])
+            }
+
+        # Map prediction to label
+        label_map = {0: "Fake News", 1: "Suspicious News", 2: "Real News"}
+
+        return {
+            "prediction": prediction,
+            "confidence": float(confidence),
+            "all_probabilities": all_probs,
+            "label": label_map[prediction]
+        }
+
     def predict_batch(
         self,
-        articles: List[Dict[str, Any]]
-    ) -> List[int]:
+        articles: List[Dict[str, Any]],
+        include_confidence: bool = False
+    ) -> Union[List[int], List[Dict[str, Any]]]:
         """
         Predict the class of multiple news articles.
 
         Args:
             articles: List of dictionaries with keys: text, source_reliability, social_reactions
+            include_confidence: If True, return full prediction dictionaries with confidence scores
 
         Returns:
-            List of predicted classes
+            List of predicted classes (if include_confidence=False)
+            or List of prediction dictionaries (if include_confidence=True)
         """
         predictions = []
         for article in articles:
-            pred = self.predict(
-                article["text"],
-                article.get("source_reliability", "Unknown"),
-                article.get("social_reactions", 0)
-            )
+            if include_confidence:
+                pred = self.predict_with_confidence(
+                    article["text"],
+                    article.get("source_reliability", "Unknown"),
+                    article.get("social_reactions", 0)
+                )
+            else:
+                pred = self.predict(
+                    article["text"],
+                    article.get("source_reliability", "Unknown"),
+                    article.get("social_reactions", 0)
+                )
             predictions.append(pred)
         return predictions
 

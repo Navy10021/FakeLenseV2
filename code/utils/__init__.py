@@ -12,6 +12,7 @@ from .exceptions import (
     InferenceError,
     ConfigurationError
 )
+from .logging_utils import StructuredLogger, RequestIDMiddleware, log_duration
 
 __all__ = [
     "FeatureExtractor",
@@ -25,5 +26,8 @@ __all__ = [
     "DataLoadError",
     "TrainingError",
     "InferenceError",
-    "ConfigurationError"
+    "ConfigurationError",
+    "StructuredLogger",
+    "RequestIDMiddleware",
+    "log_duration"
 ]

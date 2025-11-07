@@ -3,11 +3,7 @@
 import pytest
 import json
 import logging
-from code.utils.logging_utils import (
-    StructuredLogger,
-    RequestIDMiddleware,
-    log_duration
-)
+from code.utils.logging_utils import StructuredLogger, RequestIDMiddleware, log_duration
 
 
 @pytest.fixture
@@ -32,7 +28,7 @@ def test_log_prediction(structured_logger, caplog):
             prediction=2,
             label="Real News",
             confidence=0.95,
-            duration_ms=50.5
+            duration_ms=50.5,
         )
 
     assert len(caplog.records) == 1
@@ -61,7 +57,7 @@ def test_log_prediction_with_error(structured_logger, caplog):
             label="Error",
             confidence=0.0,
             duration_ms=10.0,
-            error="Model inference failed"
+            error="Model inference failed",
         )
 
     assert len(caplog.records) == 1
@@ -79,7 +75,7 @@ def test_log_batch_prediction(structured_logger, caplog):
             batch_size=10,
             duration_ms=500.0,
             success_count=9,
-            error_count=1
+            error_count=1,
         )
 
     log_entry = json.loads(caplog.records[0].message)
@@ -99,7 +95,7 @@ def test_log_api_request(structured_logger, caplog):
             path="/predict",
             status_code=200,
             duration_ms=75.5,
-            client_ip="192.168.1.1"
+            client_ip="192.168.1.1",
         )
 
     log_entry = json.loads(caplog.records[0].message)
@@ -120,7 +116,7 @@ def test_log_api_request_error(structured_logger, caplog):
             path="/predict",
             status_code=500,
             duration_ms=20.0,
-            error="Internal server error"
+            error="Internal server error",
         )
 
     log_entry = json.loads(caplog.records[0].message)
@@ -134,9 +130,7 @@ def test_log_model_load_success(structured_logger, caplog):
     """Test model loading success logging"""
     with caplog.at_level(logging.INFO):
         structured_logger.log_model_load(
-            model_path="/path/to/model.pth",
-            duration_ms=1500.0,
-            success=True
+            model_path="/path/to/model.pth", duration_ms=1500.0, success=True
         )
 
     log_entry = json.loads(caplog.records[0].message)
@@ -154,7 +148,7 @@ def test_log_model_load_failure(structured_logger, caplog):
             model_path="/path/to/model.pth",
             duration_ms=100.0,
             success=False,
-            error="File not found"
+            error="File not found",
         )
 
     log_entry = json.loads(caplog.records[0].message)
@@ -274,7 +268,7 @@ def test_log_entry_json_serializable(structured_logger, caplog):
             prediction=0,
             label="Fake",
             confidence=0.9,
-            duration_ms=50.0
+            duration_ms=50.0,
         )
 
     # This should not raise an exception

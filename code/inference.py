@@ -14,7 +14,7 @@ from sklearn.metrics import (
     recall_score,
     f1_score,
     classification_report,
-    confusion_matrix
+    confusion_matrix,
 )
 
 from code.agents.fake_news_agent import FakeNewsAgent
@@ -23,8 +23,7 @@ from code.utils.config import get_default_config
 
 # Setup logging
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 
@@ -34,11 +33,7 @@ class InferenceEngine:
     Loads the model once and reuses it for multiple predictions.
     """
 
-    def __init__(
-        self,
-        model_path: str,
-        config: Dict[str, Any] = None
-    ):
+    def __init__(self, model_path: str, config: Dict[str, Any] = None):
         """
         Initialize the inference engine.
 
@@ -51,7 +46,10 @@ class InferenceEngine:
 
         # Initialize feature extractor
         from code.models.vectorizer import BaseVectorizer
-        vectorizer = BaseVectorizer(model_name=self.config.get("model_name", "bert-base-uncased"))
+
+        vectorizer = BaseVectorizer(
+            model_name=self.config.get("model_name", "bert-base-uncased")
+        )
         self.feature_extractor = FeatureExtractor(vectorizer=vectorizer)
 
         # Initialize and load agent
@@ -63,12 +61,7 @@ class InferenceEngine:
 
         logging.info(f"Loaded model from {model_path}")
 
-    def predict(
-        self,
-        text: str,
-        source: str,
-        social_reactions: float
-    ) -> int:
+    def predict(self, text: str, source: str, social_reactions: float) -> int:
         """
         Predict the class of a single news article.
 
@@ -80,7 +73,9 @@ class InferenceEngine:
         Returns:
             Predicted class (0: Fake, 1: Suspicious, 2: Real)
         """
-        features = self.feature_extractor.extract_features(text, source, social_reactions)
+        features = self.feature_extractor.extract_features(
+            text, source, social_reactions
+        )
         features_tensor = torch.FloatTensor(features).unsqueeze(0).to(self.agent.device)
 
         with torch.no_grad():
@@ -89,10 +84,7 @@ class InferenceEngine:
         return action
 
     def predict_with_confidence(
-        self,
-        text: str,
-        source: str,
-        social_reactions: float
+        self, text: str, source: str, social_reactions: float
     ) -> Dict[str, Any]:
         """
         Predict the class of a single news article with confidence scores.
@@ -109,7 +101,9 @@ class InferenceEngine:
                 - all_probabilities: Dictionary with probabilities for all classes
                 - label: Human-readable label
         """
-        features = self.feature_extractor.extract_features(text, source, social_reactions)
+        features = self.feature_extractor.extract_features(
+            text, source, social_reactions
+        )
         features_tensor = torch.FloatTensor(features).unsqueeze(0).to(self.agent.device)
 
         with torch.no_grad():
@@ -127,7 +121,7 @@ class InferenceEngine:
             all_probs = {
                 "fake": float(probabilities[0][0]),
                 "suspicious": float(probabilities[0][1]),
-                "real": float(probabilities[0][2])
+                "real": float(probabilities[0][2]),
             }
 
         # Map prediction to label
@@ -137,13 +131,11 @@ class InferenceEngine:
             "prediction": prediction,
             "confidence": float(confidence),
             "all_probabilities": all_probs,
-            "label": label_map[prediction]
+            "label": label_map[prediction],
         }
 
     def predict_batch(
-        self,
-        articles: List[Dict[str, Any]],
-        include_confidence: bool = False
+        self, articles: List[Dict[str, Any]], include_confidence: bool = False
     ) -> Union[List[int], List[Dict[str, Any]]]:
         """
         Predict the class of multiple news articles.
@@ -162,13 +154,13 @@ class InferenceEngine:
                 pred = self.predict_with_confidence(
                     article["text"],
                     article.get("source_reliability", "Unknown"),
-                    article.get("social_reactions", 0)
+                    article.get("social_reactions", 0),
                 )
             else:
                 pred = self.predict(
                     article["text"],
                     article.get("source_reliability", "Unknown"),
-                    article.get("social_reactions", 0)
+                    article.get("social_reactions", 0),
                 )
             predictions.append(pred)
         return predictions
@@ -189,9 +181,7 @@ class Evaluator:
         self.engine = inference_engine
 
     def evaluate(
-        self,
-        test_data: List[Dict[str, Any]],
-        verbose: bool = True
+        self, test_data: List[Dict[str, Any]], verbose: bool = True
     ) -> Dict[str, float]:
         """
         Evaluate the model on test data.
@@ -215,7 +205,7 @@ class Evaluator:
             prediction = self.engine.predict(
                 sample["text"],
                 sample.get("source_reliability", "Unknown"),
-                sample.get("social_reactions", 0)
+                sample.get("social_reactions", 0),
             )
 
             y_true.append(sample["label"])
@@ -231,9 +221,11 @@ class Evaluator:
         # Compute metrics
         metrics = {
             "accuracy": accuracy_score(y_true, y_pred),
-            "precision": precision_score(y_true, y_pred, average='macro', zero_division=0),
-            "recall": recall_score(y_true, y_pred, average='macro', zero_division=0),
-            "f1_score": f1_score(y_true, y_pred, average='macro', zero_division=0)
+            "precision": precision_score(
+                y_true, y_pred, average="macro", zero_division=0
+            ),
+            "recall": recall_score(y_true, y_pred, average="macro", zero_division=0),
+            "f1_score": f1_score(y_true, y_pred, average="macro", zero_division=0),
         }
 
         if verbose:
@@ -247,11 +239,13 @@ class Evaluator:
             logging.info("\n" + "=" * 50)
             logging.info("CLASSIFICATION REPORT")
             logging.info("=" * 50)
-            print(classification_report(
-                y_true,
-                y_pred,
-                target_names=["Fake News", "Suspicious News", "Real News"]
-            ))
+            print(
+                classification_report(
+                    y_true,
+                    y_pred,
+                    target_names=["Fake News", "Suspicious News", "Real News"],
+                )
+            )
 
         # Visualize confusion matrix
         self._plot_confusion_matrix(y_true, y_pred)
@@ -276,7 +270,7 @@ class Evaluator:
             cmap="Blues",
             xticklabels=["Fake News", "Suspicious News", "Real News"],
             yticklabels=["Fake News", "Suspicious News", "Real News"],
-            cbar_kws={'label': 'Count'}
+            cbar_kws={"label": "Count"},
         )
         plt.xlabel("Predicted Label", fontsize=12)
         plt.ylabel("True Label", fontsize=12)
@@ -292,7 +286,9 @@ class Evaluator:
         plt.show()
 
 
-def evaluate_from_config(config_path: str = None, model_path: str = None) -> Dict[str, float]:
+def evaluate_from_config(
+    config_path: str = None, model_path: str = None
+) -> Dict[str, float]:
     """
     Evaluate the model using configuration.
 
@@ -339,16 +335,10 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Evaluate FakeLenseV2 model")
     parser.add_argument(
-        "--config",
-        type=str,
-        default=None,
-        help="Path to configuration JSON file"
+        "--config", type=str, default=None, help="Path to configuration JSON file"
     )
     parser.add_argument(
-        "--model",
-        type=str,
-        default=None,
-        help="Path to trained model file"
+        "--model", type=str, default=None, help="Path to trained model file"
     )
     args = parser.parse_args()
 

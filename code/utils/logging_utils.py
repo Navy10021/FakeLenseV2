@@ -35,11 +35,7 @@ class StructuredLogger:
         self.logger.addHandler(handler)
 
     def _create_log_entry(
-        self,
-        event: str,
-        level: str,
-        message: str = None,
-        **kwargs
+        self, event: str, level: str, message: str = None, **kwargs
     ) -> Dict[str, Any]:
         """
         Create a structured log entry.
@@ -76,7 +72,7 @@ class StructuredLogger:
         label: str,
         confidence: float,
         duration_ms: float,
-        error: Optional[str] = None
+        error: Optional[str] = None,
     ):
         """
         Log a prediction event.
@@ -101,7 +97,7 @@ class StructuredLogger:
             label=label,
             confidence=confidence,
             duration_ms=duration_ms,
-            error=error
+            error=error,
         )
 
         if error:
@@ -116,7 +112,7 @@ class StructuredLogger:
         duration_ms: float,
         success_count: int,
         error_count: int,
-        error: Optional[str] = None
+        error: Optional[str] = None,
     ):
         """
         Log a batch prediction event.
@@ -137,7 +133,7 @@ class StructuredLogger:
             duration_ms=duration_ms,
             success_count=success_count,
             error_count=error_count,
-            error=error
+            error=error,
         )
 
         if error:
@@ -153,7 +149,7 @@ class StructuredLogger:
         status_code: int,
         duration_ms: float,
         client_ip: Optional[str] = None,
-        error: Optional[str] = None
+        error: Optional[str] = None,
     ):
         """
         Log an API request.
@@ -176,7 +172,7 @@ class StructuredLogger:
             status_code=status_code,
             duration_ms=duration_ms,
             client_ip=client_ip,
-            error=error
+            error=error,
         )
 
         if status_code >= 400:
@@ -189,7 +185,7 @@ class StructuredLogger:
         model_path: str,
         duration_ms: float,
         success: bool,
-        error: Optional[str] = None
+        error: Optional[str] = None,
     ):
         """
         Log a model loading event.
@@ -206,7 +202,7 @@ class StructuredLogger:
             model_path=model_path,
             duration_ms=duration_ms,
             success=success,
-            error=error
+            error=error,
         )
 
         if success:

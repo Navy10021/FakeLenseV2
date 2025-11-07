@@ -1,10 +1,9 @@
 """FastAPI REST API server for FakeLenseV2"""
 
 import time
-from typing import Optional, List, Dict, Any
-from fastapi import FastAPI, HTTPException, Request, Response
+from typing import Optional, List, Dict
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
@@ -27,7 +26,7 @@ app = FastAPI(
     description="AI-Powered Fake News Detection System with Confidence Scoring",
     version="2.0.0",
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
 )
 
 # Add rate limiting
@@ -49,27 +48,43 @@ inference_engine: Optional[InferenceEngine] = None
 
 class PredictionRequest(BaseModel):
     """Request model for prediction"""
-    text: str = Field(..., description="Article text content", min_length=10, max_length=10000)
+
+    text: str = Field(
+        ..., description="Article text content", min_length=10, max_length=10000
+    )
     source: Optional[str] = Field(None, description="News source name")
-    social_reactions: Optional[float] = Field(0, description="Number of social media reactions", ge=0)
+    social_reactions: Optional[float] = Field(
+        0, description="Number of social media reactions", ge=0
+    )
 
 
 class PredictionResponse(BaseModel):
     """Response model for prediction"""
-    prediction: int = Field(..., description="Predicted class (0: Fake, 1: Suspicious, 2: Real)")
+
+    prediction: int = Field(
+        ..., description="Predicted class (0: Fake, 1: Suspicious, 2: Real)"
+    )
     label: str = Field(..., description="Human-readable label")
-    confidence: float = Field(..., description="Prediction confidence score (0-1)", ge=0, le=1)
-    all_probabilities: Dict[str, float] = Field(..., description="Probabilities for all classes")
+    confidence: float = Field(
+        ..., description="Prediction confidence score (0-1)", ge=0, le=1
+    )
+    all_probabilities: Dict[str, float] = Field(
+        ..., description="Probabilities for all classes"
+    )
     request_id: str = Field(..., description="Unique request identifier")
 
 
 class BatchPredictionRequest(BaseModel):
     """Request model for batch prediction"""
-    articles: List[PredictionRequest] = Field(..., description="List of articles to predict", max_items=100)
+
+    articles: List[PredictionRequest] = Field(
+        ..., description="List of articles to predict", max_items=100
+    )
 
 
 class HealthResponse(BaseModel):
     """Response model for health check"""
+
     status: str
     model_loaded: bool
     version: str
@@ -103,7 +118,7 @@ async def add_request_id_and_logging(request: Request, call_next):
             path=str(request.url.path),
             status_code=response.status_code,
             duration_ms=duration_ms,
-            client_ip=request.client.host if request.client else None
+            client_ip=request.client.host if request.client else None,
         )
 
         return response
@@ -116,7 +131,7 @@ async def add_request_id_and_logging(request: Request, call_next):
             status_code=500,
             duration_ms=duration_ms,
             client_ip=request.client.host if request.client else None,
-            error=str(e)
+            error=str(e),
         )
         raise
 
@@ -134,9 +149,7 @@ async def startup_event():
 
         duration_ms = (time.time() - start_time) * 1000
         logger.log_model_load(
-            model_path=model_path,
-            duration_ms=duration_ms,
-            success=True
+            model_path=model_path, duration_ms=duration_ms, success=True
         )
         logger.info("Inference engine loaded successfully", model_path=model_path)
     except Exception as e:
@@ -145,7 +158,7 @@ async def startup_event():
             model_path="./models/best_model.pth",
             duration_ms=duration_ms,
             success=False,
-            error=str(e)
+            error=str(e),
         )
         logger.error("Failed to load inference engine", error=str(e))
         # Continue startup even if model fails to load
@@ -159,7 +172,7 @@ async def root():
         "status": "online",
         "model_loaded": inference_engine is not None,
         "version": "2.0.0",
-        "uptime_seconds": uptime
+        "uptime_seconds": uptime,
     }
 
 
@@ -171,7 +184,7 @@ async def health():
         "status": "healthy" if inference_engine is not None else "unhealthy",
         "model_loaded": inference_engine is not None,
         "version": "2.0.0",
-        "uptime_seconds": uptime
+        "uptime_seconds": uptime,
     }
 
 
@@ -201,7 +214,7 @@ async def predict(req: Request, request: PredictionRequest):
         result = inference_engine.predict_with_confidence(
             text=request.text,
             source=request.source or "Unknown",
-            social_reactions=request.social_reactions or 0
+            social_reactions=request.social_reactions or 0,
         )
 
         duration_ms = (time.time() - start_time) * 1000
@@ -214,7 +227,7 @@ async def predict(req: Request, request: PredictionRequest):
             prediction=result["prediction"],
             label=result["label"],
             confidence=result["confidence"],
-            duration_ms=duration_ms
+            duration_ms=duration_ms,
         )
 
         return {
@@ -222,7 +235,7 @@ async def predict(req: Request, request: PredictionRequest):
             "label": result["label"],
             "confidence": result["confidence"],
             "all_probabilities": result["all_probabilities"],
-            "request_id": request_id
+            "request_id": request_id,
         }
     except Exception as e:
         duration_ms = (time.time() - start_time) * 1000
@@ -234,7 +247,7 @@ async def predict(req: Request, request: PredictionRequest):
             label="Error",
             confidence=0.0,
             duration_ms=duration_ms,
-            error=str(e)
+            error=str(e),
         )
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
@@ -275,23 +288,31 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
                 result = inference_engine.predict_with_confidence(
                     text=article.text,
                     source=article.source or "Unknown",
-                    social_reactions=article.social_reactions or 0
+                    social_reactions=article.social_reactions or 0,
                 )
-                results.append({
-                    "prediction": result["prediction"],
-                    "label": result["label"],
-                    "confidence": result["confidence"],
-                    "all_probabilities": result["all_probabilities"]
-                })
+                results.append(
+                    {
+                        "prediction": result["prediction"],
+                        "label": result["label"],
+                        "confidence": result["confidence"],
+                        "all_probabilities": result["all_probabilities"],
+                    }
+                )
                 success_count += 1
             except Exception as e:
-                results.append({
-                    "prediction": -1,
-                    "label": "Error",
-                    "confidence": 0.0,
-                    "all_probabilities": {"fake": 0.0, "suspicious": 0.0, "real": 0.0},
-                    "error": str(e)
-                })
+                results.append(
+                    {
+                        "prediction": -1,
+                        "label": "Error",
+                        "confidence": 0.0,
+                        "all_probabilities": {
+                            "fake": 0.0,
+                            "suspicious": 0.0,
+                            "real": 0.0,
+                        },
+                        "error": str(e),
+                    }
+                )
                 error_count += 1
 
         duration_ms = (time.time() - start_time) * 1000
@@ -302,7 +323,7 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
             batch_size=batch_size,
             duration_ms=duration_ms,
             success_count=success_count,
-            error_count=error_count
+            error_count=error_count,
         )
 
         return {
@@ -310,7 +331,7 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
             "request_id": request_id,
             "total": batch_size,
             "success": success_count,
-            "errors": error_count
+            "errors": error_count,
         }
     except Exception as e:
         duration_ms = (time.time() - start_time) * 1000
@@ -320,19 +341,17 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
             duration_ms=duration_ms,
             success_count=success_count,
             error_count=batch_size,
-            error=str(e)
+            error=str(e),
         )
-        raise HTTPException(status_code=500, detail=f"Batch prediction failed: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Batch prediction failed: {str(e)}"
+        )
 
 
 def main():
     """Run the API server"""
     uvicorn.run(
-        "code.api_server:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True,
-        log_level="info"
+        "code.api_server:app", host="0.0.0.0", port=8000, reload=True, log_level="info"
     )
 
 

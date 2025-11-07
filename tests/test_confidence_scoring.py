@@ -2,7 +2,7 @@
 
 import pytest
 import torch
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 from code.inference import InferenceEngine
 
 
@@ -13,7 +13,7 @@ def mock_config():
         "state_size": 770,
         "action_size": 3,
         "model_name": "bert-base-uncased",
-        "epsilon": 0.0
+        "epsilon": 0.0,
     }
 
 
@@ -45,7 +45,9 @@ def mock_agent():
     # Mock model that returns Q-values
     mock_model = Mock()
     # Return Q-values for 3 classes
-    mock_model.return_value = torch.tensor([[2.0, 1.0, 3.5]])  # Highest Q-value for class 2
+    mock_model.return_value = torch.tensor(
+        [[2.0, 1.0, 3.5]]
+    )  # Highest Q-value for class 2
 
     agent.model = mock_model
     agent.act = Mock(return_value=2)  # Returns class 2
@@ -53,16 +55,16 @@ def mock_agent():
     return agent
 
 
-@patch('code.inference.FakeNewsAgent')
-@patch('code.inference.FeatureExtractor')
-@patch('code.models.vectorizer.BaseVectorizer')
+@patch("code.inference.FakeNewsAgent")
+@patch("code.inference.FeatureExtractor")
+@patch("code.models.vectorizer.BaseVectorizer")
 def test_predict_with_confidence_returns_dict(
     mock_vectorizer_class,
     mock_feature_extractor_class,
     mock_agent_class,
     mock_config,
     mock_feature_extractor,
-    mock_agent
+    mock_agent,
 ):
     """Test that predict_with_confidence returns a dictionary with required fields"""
     mock_vectorizer_class.return_value = Mock()
@@ -74,9 +76,7 @@ def test_predict_with_confidence_returns_dict(
 
     # Make prediction
     result = engine.predict_with_confidence(
-        text="This is a test article",
-        source="Reuters",
-        social_reactions=1000
+        text="This is a test article", source="Reuters", social_reactions=1000
     )
 
     # Check result structure
@@ -87,16 +87,16 @@ def test_predict_with_confidence_returns_dict(
     assert "label" in result
 
 
-@patch('code.inference.FakeNewsAgent')
-@patch('code.inference.FeatureExtractor')
-@patch('code.models.vectorizer.BaseVectorizer')
+@patch("code.inference.FakeNewsAgent")
+@patch("code.inference.FeatureExtractor")
+@patch("code.models.vectorizer.BaseVectorizer")
 def test_confidence_score_range(
     mock_vectorizer_class,
     mock_feature_extractor_class,
     mock_agent_class,
     mock_config,
     mock_feature_extractor,
-    mock_agent
+    mock_agent,
 ):
     """Test that confidence scores are in valid range [0, 1]"""
     mock_vectorizer_class.return_value = Mock()
@@ -105,9 +105,7 @@ def test_confidence_score_range(
 
     engine = InferenceEngine("/fake/model/path.pth", mock_config)
     result = engine.predict_with_confidence(
-        text="Test article",
-        source="BBC",
-        social_reactions=500
+        text="Test article", source="BBC", social_reactions=500
     )
 
     # Check confidence is in valid range
@@ -118,16 +116,16 @@ def test_confidence_score_range(
         assert 0 <= prob <= 1
 
 
-@patch('code.inference.FakeNewsAgent')
-@patch('code.inference.FeatureExtractor')
-@patch('code.models.vectorizer.BaseVectorizer')
+@patch("code.inference.FakeNewsAgent")
+@patch("code.inference.FeatureExtractor")
+@patch("code.models.vectorizer.BaseVectorizer")
 def test_probabilities_sum_to_one(
     mock_vectorizer_class,
     mock_feature_extractor_class,
     mock_agent_class,
     mock_config,
     mock_feature_extractor,
-    mock_agent
+    mock_agent,
 ):
     """Test that all probabilities sum to approximately 1"""
     mock_vectorizer_class.return_value = Mock()
@@ -136,9 +134,7 @@ def test_probabilities_sum_to_one(
 
     engine = InferenceEngine("/fake/model/path.pth", mock_config)
     result = engine.predict_with_confidence(
-        text="Test article",
-        source="Reuters",
-        social_reactions=1000
+        text="Test article", source="Reuters", social_reactions=1000
     )
 
     # Sum all probabilities
@@ -148,16 +144,16 @@ def test_probabilities_sum_to_one(
     assert 0.99 <= prob_sum <= 1.01
 
 
-@patch('code.inference.FakeNewsAgent')
-@patch('code.inference.FeatureExtractor')
-@patch('code.models.vectorizer.BaseVectorizer')
+@patch("code.inference.FakeNewsAgent")
+@patch("code.inference.FeatureExtractor")
+@patch("code.models.vectorizer.BaseVectorizer")
 def test_all_probability_classes_present(
     mock_vectorizer_class,
     mock_feature_extractor_class,
     mock_agent_class,
     mock_config,
     mock_feature_extractor,
-    mock_agent
+    mock_agent,
 ):
     """Test that all probability classes are present in result"""
     mock_vectorizer_class.return_value = Mock()
@@ -166,9 +162,7 @@ def test_all_probability_classes_present(
 
     engine = InferenceEngine("/fake/model/path.pth", mock_config)
     result = engine.predict_with_confidence(
-        text="Test article",
-        source="Reuters",
-        social_reactions=1000
+        text="Test article", source="Reuters", social_reactions=1000
     )
 
     # Check all classes are present
@@ -177,25 +171,21 @@ def test_all_probability_classes_present(
     assert "real" in result["all_probabilities"]
 
 
-@patch('code.inference.FakeNewsAgent')
-@patch('code.inference.FeatureExtractor')
-@patch('code.models.vectorizer.BaseVectorizer')
+@patch("code.inference.FakeNewsAgent")
+@patch("code.inference.FeatureExtractor")
+@patch("code.models.vectorizer.BaseVectorizer")
 def test_label_mapping(
     mock_vectorizer_class,
     mock_feature_extractor_class,
     mock_agent_class,
     mock_config,
-    mock_feature_extractor
+    mock_feature_extractor,
 ):
     """Test that prediction labels are correctly mapped"""
     mock_vectorizer_class.return_value = Mock()
     mock_feature_extractor_class.return_value = mock_feature_extractor
 
-    test_cases = [
-        (0, "Fake News"),
-        (1, "Suspicious News"),
-        (2, "Real News")
-    ]
+    test_cases = [(0, "Fake News"), (1, "Suspicious News"), (2, "Real News")]
 
     for prediction_class, expected_label in test_cases:
         # Mock agent for this prediction class
@@ -214,25 +204,23 @@ def test_label_mapping(
 
         engine = InferenceEngine("/fake/model/path.pth", mock_config)
         result = engine.predict_with_confidence(
-            text="Test article",
-            source="Test",
-            social_reactions=0
+            text="Test article", source="Test", social_reactions=0
         )
 
         assert result["prediction"] == prediction_class
         assert result["label"] == expected_label
 
 
-@patch('code.inference.FakeNewsAgent')
-@patch('code.inference.FeatureExtractor')
-@patch('code.models.vectorizer.BaseVectorizer')
+@patch("code.inference.FakeNewsAgent")
+@patch("code.inference.FeatureExtractor")
+@patch("code.models.vectorizer.BaseVectorizer")
 def test_confidence_matches_max_probability(
     mock_vectorizer_class,
     mock_feature_extractor_class,
     mock_agent_class,
     mock_config,
     mock_feature_extractor,
-    mock_agent
+    mock_agent,
 ):
     """Test that confidence matches the maximum probability"""
     mock_vectorizer_class.return_value = Mock()
@@ -241,26 +229,26 @@ def test_confidence_matches_max_probability(
 
     engine = InferenceEngine("/fake/model/path.pth", mock_config)
     result = engine.predict_with_confidence(
-        text="Test article",
-        source="Reuters",
-        social_reactions=1000
+        text="Test article", source="Reuters", social_reactions=1000
     )
 
     # Confidence should equal the maximum probability
     max_prob = max(result["all_probabilities"].values())
-    assert abs(result["confidence"] - max_prob) < 0.001  # Allow small floating point diff
+    assert (
+        abs(result["confidence"] - max_prob) < 0.001
+    )  # Allow small floating point diff
 
 
-@patch('code.inference.FakeNewsAgent')
-@patch('code.inference.FeatureExtractor')
-@patch('code.models.vectorizer.BaseVectorizer')
+@patch("code.inference.FakeNewsAgent")
+@patch("code.inference.FeatureExtractor")
+@patch("code.models.vectorizer.BaseVectorizer")
 def test_predict_batch_with_confidence(
     mock_vectorizer_class,
     mock_feature_extractor_class,
     mock_agent_class,
     mock_config,
     mock_feature_extractor,
-    mock_agent
+    mock_agent,
 ):
     """Test batch prediction with confidence scores"""
     mock_vectorizer_class.return_value = Mock()
@@ -286,16 +274,16 @@ def test_predict_batch_with_confidence(
         assert "label" in result
 
 
-@patch('code.inference.FakeNewsAgent')
-@patch('code.inference.FeatureExtractor')
-@patch('code.models.vectorizer.BaseVectorizer')
+@patch("code.inference.FakeNewsAgent")
+@patch("code.inference.FeatureExtractor")
+@patch("code.models.vectorizer.BaseVectorizer")
 def test_predict_batch_without_confidence(
     mock_vectorizer_class,
     mock_feature_extractor_class,
     mock_agent_class,
     mock_config,
     mock_feature_extractor,
-    mock_agent
+    mock_agent,
 ):
     """Test batch prediction without confidence scores"""
     mock_vectorizer_class.return_value = Mock()
@@ -324,15 +312,15 @@ def test_predict_batch_without_confidence(
         assert isinstance(result, int)  # Should return just the class number
 
 
-@patch('code.inference.FakeNewsAgent')
-@patch('code.inference.FeatureExtractor')
-@patch('code.models.vectorizer.BaseVectorizer')
+@patch("code.inference.FakeNewsAgent")
+@patch("code.inference.FeatureExtractor")
+@patch("code.models.vectorizer.BaseVectorizer")
 def test_softmax_conversion(
     mock_vectorizer_class,
     mock_feature_extractor_class,
     mock_agent_class,
     mock_config,
-    mock_feature_extractor
+    mock_feature_extractor,
 ):
     """Test that Q-values are correctly converted to probabilities using softmax"""
     mock_vectorizer_class.return_value = Mock()
@@ -353,9 +341,7 @@ def test_softmax_conversion(
 
     engine = InferenceEngine("/fake/model/path.pth", mock_config)
     result = engine.predict_with_confidence(
-        text="Test article",
-        source="Test",
-        social_reactions=0
+        text="Test article", source="Test", social_reactions=0
     )
 
     # Manually calculate expected softmax probabilities

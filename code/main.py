@@ -24,7 +24,7 @@ def infer_cli(args):
     prediction = engine.predict(
         text=args.text,
         source=args.source or "Unknown",
-        social_reactions=args.reactions or 0
+        social_reactions=args.reactions or 0,
     )
 
     label_map = {0: "Fake News", 1: "Suspicious News", 2: "Real News"}
@@ -50,7 +50,7 @@ Examples:
       --text "Breaking news article text..." \\
       --source "Reuters" \\
       --reactions 5000
-        """
+        """,
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
@@ -58,54 +58,33 @@ Examples:
     # Train command
     train_parser = subparsers.add_parser("train", help="Train the model")
     train_parser.add_argument(
-        "--config",
-        type=str,
-        default=None,
-        help="Path to configuration JSON file"
+        "--config", type=str, default=None, help="Path to configuration JSON file"
     )
     train_parser.set_defaults(func=train)
 
     # Evaluate command
     eval_parser = subparsers.add_parser("evaluate", help="Evaluate the model")
     eval_parser.add_argument(
-        "--config",
-        type=str,
-        default=None,
-        help="Path to configuration JSON file"
+        "--config", type=str, default=None, help="Path to configuration JSON file"
     )
     eval_parser.add_argument(
-        "--model",
-        type=str,
-        default=None,
-        help="Path to trained model file"
+        "--model", type=str, default=None, help="Path to trained model file"
     )
     eval_parser.set_defaults(func=evaluate)
 
     # Infer command
     infer_parser = subparsers.add_parser("infer", help="Make a prediction")
     infer_parser.add_argument(
-        "--model",
-        type=str,
-        required=True,
-        help="Path to trained model file"
+        "--model", type=str, required=True, help="Path to trained model file"
     )
     infer_parser.add_argument(
-        "--text",
-        type=str,
-        required=True,
-        help="Article text to analyze"
+        "--text", type=str, required=True, help="Article text to analyze"
     )
     infer_parser.add_argument(
-        "--source",
-        type=str,
-        default=None,
-        help="News source name"
+        "--source", type=str, default=None, help="News source name"
     )
     infer_parser.add_argument(
-        "--reactions",
-        type=float,
-        default=None,
-        help="Number of social media reactions"
+        "--reactions", type=float, default=None, help="Number of social media reactions"
     )
     infer_parser.set_defaults(func=infer_cli)
 

@@ -14,8 +14,7 @@ from code.utils.validators import DataValidator, ValidationError
 
 # Setup logging
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 
@@ -28,7 +27,7 @@ class Trainer:
         self,
         agent: FakeNewsAgent,
         feature_extractor: FeatureExtractor,
-        config: Dict[str, Any]
+        config: Dict[str, Any],
     ):
         """
         Initialize the trainer.
@@ -47,7 +46,7 @@ class Trainer:
         self,
         train_data: List[Dict[str, Any]],
         num_episodes: int = None,
-        patience: int = None
+        patience: int = None,
     ) -> None:
         """
         Train the agent on the training data.
@@ -96,7 +95,7 @@ class Trainer:
                 features = self.feature_extractor.extract_features(
                     sample["text"],
                     sample["source_reliability"],
-                    sample["social_reactions"]
+                    sample["social_reactions"],
                 )
 
                 state = features
@@ -127,7 +126,9 @@ class Trainer:
                 no_improvement = 0
 
                 # Save best model
-                model_path = self.config.get("model_save_path", "./models/best_model.pth")
+                model_path = self.config.get(
+                    "model_save_path", "./models/best_model.pth"
+                )
                 os.makedirs(os.path.dirname(model_path), exist_ok=True)
                 self.agent.save(model_path)
                 logging.info(f"New best model saved to {model_path}")
@@ -140,7 +141,9 @@ class Trainer:
                 break
 
         logging.info("Training completed!")
-        logging.info(f"Best reward: {best_reward} ({(best_reward / max_possible_reward) * 100:.2f}/100)")
+        logging.info(
+            f"Best reward: {best_reward} ({(best_reward / max_possible_reward) * 100:.2f}/100)"
+        )
 
         # Plot training curve
         self._plot_training_curve()
@@ -197,7 +200,9 @@ def train_from_config(config_path: str = None) -> None:
                 raise
         else:
             if config_path:
-                logging.warning(f"Configuration file not found: {config_path}, using defaults")
+                logging.warning(
+                    f"Configuration file not found: {config_path}, using defaults"
+                )
             config = get_default_config()
             logging.info("Using default configuration")
 
@@ -210,7 +215,9 @@ def train_from_config(config_path: str = None) -> None:
         try:
             with open(train_data_path, "r", encoding="utf-8") as f:
                 train_data = json.load(f)
-            logging.info(f"Loaded {len(train_data)} training samples from {train_data_path}")
+            logging.info(
+                f"Loaded {len(train_data)} training samples from {train_data_path}"
+            )
         except json.JSONDecodeError as e:
             logging.error(f"Invalid JSON in training data file: {str(e)}")
             raise ValidationError(f"Invalid JSON in training data file: {str(e)}")
@@ -222,7 +229,9 @@ def train_from_config(config_path: str = None) -> None:
         from code.models.vectorizer import BaseVectorizer
 
         try:
-            vectorizer = BaseVectorizer(model_name=config.get("model_name", "bert-base-uncased"))
+            vectorizer = BaseVectorizer(
+                model_name=config.get("model_name", "bert-base-uncased")
+            )
             feature_extractor = FeatureExtractor(vectorizer=vectorizer)
             logging.info("Initialized feature extractor and vectorizer")
         except Exception as e:
@@ -267,10 +276,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Train FakeLenseV2 model")
     parser.add_argument(
-        "--config",
-        type=str,
-        default=None,
-        help="Path to configuration JSON file"
+        "--config", type=str, default=None, help="Path to configuration JSON file"
     )
     args = parser.parse_args()
 

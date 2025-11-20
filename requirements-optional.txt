@@ -1,0 +1,7 @@
+# Optional Dependencies for Advanced Features
+# Install with: pip install -r requirements-optional.txt
+
+# Workflow Orchestration (Optional)
+# Note: apache-airflow requires additional system dependencies
+# and may have compatibility issues with some Python versions
+apache-airflow>=2.0.0

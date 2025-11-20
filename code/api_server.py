@@ -13,6 +13,7 @@ import uvicorn
 from code.inference import InferenceEngine
 from code.utils.config import get_default_config
 from code.utils.logging_utils import StructuredLogger, RequestIDMiddleware
+from code.utils.validators import ValidationError
 
 # Setup structured logging
 logger = StructuredLogger("fakelense-api")
@@ -237,7 +238,32 @@ async def predict(req: Request, request: PredictionRequest):
             "all_probabilities": result["all_probabilities"],
             "request_id": request_id,
         }
+    except ValidationError as e:
+        # Validation errors return 400 Bad Request
+        duration_ms = (time.time() - start_time) * 1000
+        logger.log_prediction(
+            request_id=request_id,
+            text_length=len(request.text) if hasattr(request, 'text') else 0,
+            source=request.source,
+            prediction=-1,
+            label="ValidationError",
+            confidence=0.0,
+            duration_ms=duration_ms,
+            error=str(e),
+        )
+        raise HTTPException(status_code=400, detail=f"Validation error: {str(e)}")
+    except FileNotFoundError as e:
+        # Model file not found
+        duration_ms = (time.time() - start_time) * 1000
+        logger.error("Model file not found", error=str(e), request_id=request_id)
+        raise HTTPException(status_code=503, detail="Model files not accessible")
+    except RuntimeError as e:
+        # Runtime errors (e.g., CUDA errors, model inference issues)
+        duration_ms = (time.time() - start_time) * 1000
+        logger.error("Runtime error during prediction", error=str(e), request_id=request_id)
+        raise HTTPException(status_code=500, detail="Model inference error occurred")
     except Exception as e:
+        # Catch-all for unexpected errors
         duration_ms = (time.time() - start_time) * 1000
         logger.log_prediction(
             request_id=request_id,
@@ -249,7 +275,8 @@ async def predict(req: Request, request: PredictionRequest):
             duration_ms=duration_ms,
             error=str(e),
         )
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+        logger.error("Unexpected error during prediction", error=str(e), request_id=request_id)
+        raise HTTPException(status_code=500, detail="An unexpected error occurred during prediction")
 
 
 @app.post("/batch_predict")
@@ -299,6 +326,37 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
                     }
                 )
                 success_count += 1
+            except ValidationError as e:
+                results.append(
+                    {
+                        "prediction": -1,
+                        "label": "ValidationError",
+                        "confidence": 0.0,
+                        "all_probabilities": {
+                            "fake": 0.0,
+                            "suspicious": 0.0,
+                            "real": 0.0,
+                        },
+                        "error": f"Validation error: {str(e)}",
+                    }
+                )
+                error_count += 1
+            except RuntimeError as e:
+                results.append(
+                    {
+                        "prediction": -1,
+                        "label": "RuntimeError",
+                        "confidence": 0.0,
+                        "all_probabilities": {
+                            "fake": 0.0,
+                            "suspicious": 0.0,
+                            "real": 0.0,
+                        },
+                        "error": "Model inference error",
+                    }
+                )
+                error_count += 1
+                logger.error("Runtime error in batch prediction", error=str(e), request_id=request_id)
             except Exception as e:
                 results.append(
                     {
@@ -310,10 +368,11 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
                             "suspicious": 0.0,
                             "real": 0.0,
                         },
-                        "error": str(e),
+                        "error": "Unexpected error occurred",
                     }
                 )
                 error_count += 1
+                logger.error("Unexpected error in batch prediction", error=str(e), request_id=request_id)
 
         duration_ms = (time.time() - start_time) * 1000
 
@@ -333,6 +392,18 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
             "success": success_count,
             "errors": error_count,
         }
+    except ValidationError as e:
+        # Validation error at batch level
+        duration_ms = (time.time() - start_time) * 1000
+        logger.log_batch_prediction(
+            request_id=request_id,
+            batch_size=batch_size,
+            duration_ms=duration_ms,
+            success_count=0,
+            error_count=batch_size,
+            error=str(e),
+        )
+        raise HTTPException(status_code=400, detail=f"Batch validation error: {str(e)}")
     except Exception as e:
         duration_ms = (time.time() - start_time) * 1000
         logger.log_batch_prediction(
@@ -343,8 +414,9 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
             error_count=batch_size,
             error=str(e),
         )
+        logger.error("Critical error in batch prediction", error=str(e), request_id=request_id)
         raise HTTPException(
-            status_code=500, detail=f"Batch prediction failed: {str(e)}"
+            status_code=500, detail="An unexpected error occurred during batch prediction"
         )
 
 

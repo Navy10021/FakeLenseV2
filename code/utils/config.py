@@ -24,6 +24,18 @@ SOURCE_RELIABILITY_MAPPING = {
 # Default reliability score for unknown sources
 DEFAULT_RELIABILITY = 0.50
 
+# Feature extraction constants
+SOCIAL_REACTIONS_NORMALIZER = 10000.0  # Normalization factor for social reactions
+
+# Validation limits
+TEXT_MIN_LENGTH = 10  # Minimum article text length
+TEXT_MAX_LENGTH = 10000  # Maximum article text length
+SOCIAL_REACTIONS_MAX = 1e9  # Maximum allowed social reactions (1 billion)
+
+# Reward shaping constants for reinforcement learning
+REWARD_PENALTY_CONFIDENT_WRONG = 2.0  # Penalty multiplier for confident wrong predictions
+REWARD_PENALTY_CORRECT = 0.5  # Penalty multiplier for correct predictions
+
 
 def get_default_config() -> Dict[str, Any]:
     """
@@ -72,6 +84,18 @@ def get_default_config() -> Dict[str, Any]:
         # Vectorizer settings
         "model_name": "bert-base-uncased",
         "max_seq_length": 512,
+
+        # Feature extraction
+        "social_reactions_normalizer": SOCIAL_REACTIONS_NORMALIZER,
+
+        # Validation limits
+        "text_min_length": TEXT_MIN_LENGTH,
+        "text_max_length": TEXT_MAX_LENGTH,
+        "social_reactions_max": SOCIAL_REACTIONS_MAX,
+
+        # Reward shaping
+        "reward_penalty_confident_wrong": REWARD_PENALTY_CONFIDENT_WRONG,
+        "reward_penalty_correct": REWARD_PENALTY_CORRECT,
     }
 
 

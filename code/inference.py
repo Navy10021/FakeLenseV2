@@ -33,13 +33,21 @@ class InferenceEngine:
     Loads the model once and reuses it for multiple predictions.
     """
 
-    def __init__(self, model_path: str, config: Dict[str, Any] = None):
+    def __init__(self, model_path: str, config: Dict[str, Any] = None) -> None:
         """
         Initialize the inference engine.
 
         Args:
-            model_path: Path to the trained model
-            config: Configuration dictionary (optional)
+            model_path: Path to the trained model file (.pth)
+            config: Configuration dictionary with model settings (optional, uses defaults if not provided)
+
+        Raises:
+            FileNotFoundError: If model_path does not exist
+            RuntimeError: If model loading fails
+
+        Example:
+            >>> engine = InferenceEngine("./models/best_model.pth")
+            >>> result = engine.predict_with_confidence("Breaking news...", "CNN", 1000)
         """
         self.config = config or get_default_config()
         self.model_path = model_path

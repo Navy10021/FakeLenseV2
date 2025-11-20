@@ -4,6 +4,12 @@ from typing import Any, Dict, List
 import json
 import logging
 
+from code.utils.config import (
+    TEXT_MIN_LENGTH,
+    TEXT_MAX_LENGTH,
+    SOCIAL_REACTIONS_MAX,
+)
+
 logger = logging.getLogger(__name__)
 
 
@@ -16,14 +22,18 @@ class DataValidator:
     """Validator for input data"""
 
     @staticmethod
-    def validate_article_text(text: str, min_length: int = 10, max_length: int = 10000) -> bool:
+    def validate_article_text(
+        text: str,
+        min_length: int = TEXT_MIN_LENGTH,
+        max_length: int = TEXT_MAX_LENGTH,
+    ) -> bool:
         """
         Validate article text.
 
         Args:
             text: Article text to validate
-            min_length: Minimum acceptable text length
-            max_length: Maximum acceptable text length
+            min_length: Minimum acceptable text length (default from config)
+            max_length: Maximum acceptable text length (default from config)
 
         Returns:
             True if valid
@@ -65,12 +75,13 @@ class DataValidator:
         return True
 
     @staticmethod
-    def validate_social_reactions(reactions: float) -> bool:
+    def validate_social_reactions(reactions: float, max_value: float = SOCIAL_REACTIONS_MAX) -> bool:
         """
         Validate social reactions count.
 
         Args:
             reactions: Number of social reactions
+            max_value: Maximum allowed value (default from config)
 
         Returns:
             True if valid
@@ -84,8 +95,8 @@ class DataValidator:
         if reactions < 0:
             raise ValidationError("Social reactions cannot be negative")
 
-        if reactions > 1e9:  # 1 billion
-            raise ValidationError("Social reactions value too large")
+        if reactions > max_value:
+            raise ValidationError(f"Social reactions value too large (max: {max_value})")
 
         return True
 

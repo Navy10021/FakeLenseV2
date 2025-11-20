@@ -4,7 +4,11 @@ import numpy as np
 from typing import Optional
 
 from code.models.vectorizer import BaseVectorizer
-from code.utils.config import SOURCE_RELIABILITY_MAPPING, DEFAULT_RELIABILITY
+from code.utils.config import (
+    SOURCE_RELIABILITY_MAPPING,
+    DEFAULT_RELIABILITY,
+    SOCIAL_REACTIONS_NORMALIZER,
+)
 
 
 class FeatureExtractor:
@@ -48,13 +52,31 @@ class FeatureExtractor:
         """
         Extract combined features from article data.
 
+        Creates a comprehensive feature vector combining:
+        - Text embeddings (768-dimensional BERT/RoBERTa representation)
+        - Source reliability score (0.0-1.0, based on known source mapping)
+        - Normalized social reactions (scaled by configured normalizer)
+
         Args:
-            text: Article text content
-            source: News source name
-            social_reactions: Number of social media reactions (shares, likes, etc.)
+            text: Article text content (will be truncated to max_seq_length)
+            source: News source name (e.g., "CNN", "BBC")
+            social_reactions: Number of social media reactions (shares, likes, comments, etc.)
 
         Returns:
-            Combined feature vector as numpy array
+            Combined feature vector as numpy array with shape (770,):
+            - [0:768]: Text embedding from transformer model
+            - [768]: Source reliability score
+            - [769]: Normalized social reactions count
+
+        Example:
+            >>> extractor = FeatureExtractor()
+            >>> features = extractor.extract_features(
+            ...     "Breaking news article text...",
+            ...     "The New York Times",
+            ...     5000
+            ... )
+            >>> features.shape
+            (770,)
         """
         # Get reliability score
         reliability_score = self.convert_source_reliability(source)
@@ -62,8 +84,8 @@ class FeatureExtractor:
         # Get text embedding
         text_vector = self.vectorizer.vectorize(text)
 
-        # Normalize social reactions (divide by 10,000 for scaling)
-        normalized_social = social_reactions / 10000.0
+        # Normalize social reactions using configured normalizer
+        normalized_social = social_reactions / SOCIAL_REACTIONS_NORMALIZER
 
         # Combine all features
         combined_features = np.concatenate([

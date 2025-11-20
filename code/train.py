@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from code.agents.fake_news_agent import FakeNewsAgent
 from code.utils.feature_extraction import FeatureExtractor
 from code.utils.config import get_default_config
+from code.utils.validators import DataValidator, ValidationError
 
 # Setup logging
 logging.basicConfig(
@@ -55,9 +56,29 @@ class Trainer:
             train_data: List of training samples
             num_episodes: Number of training episodes (defaults to config value)
             patience: Early stopping patience (defaults to config value)
+
+        Raises:
+            ValidationError: If training data is invalid
+            ValueError: If training parameters are invalid
         """
+        # Validate training data
+        try:
+            DataValidator.validate_training_data(train_data)
+            logging.info(f"Training data validation passed: {len(train_data)} samples")
+        except ValidationError as e:
+            logging.error(f"Training data validation failed: {str(e)}")
+            raise
+
+        # Validate training parameters
         num_episodes = num_episodes or self.config.get("num_episodes", 500)
         patience = patience or self.config.get("patience", 15)
+
+        if num_episodes <= 0:
+            raise ValueError("num_episodes must be positive")
+        if patience <= 0:
+            raise ValueError("patience must be positive")
+        if len(train_data) == 0:
+            raise ValueError("Training data cannot be empty")
 
         best_reward = -float("inf")
         no_improvement = 0
@@ -152,38 +173,93 @@ def train_from_config(config_path: str = None) -> None:
 
     Args:
         config_path: Path to JSON configuration file (optional)
+
+    Raises:
+        FileNotFoundError: If configuration or training data file not found
+        ValidationError: If configuration or training data is invalid
+        ValueError: If configuration parameters are invalid
     """
-    # Load configuration
-    if config_path and os.path.exists(config_path):
-        with open(config_path, "r") as f:
-            config = json.load(f)
-        logging.info(f"Loaded configuration from {config_path}")
-    else:
-        config = get_default_config()
-        logging.info("Using default configuration")
+    try:
+        # Load configuration
+        if config_path and os.path.exists(config_path):
+            try:
+                with open(config_path, "r") as f:
+                    config = json.load(f)
+                logging.info(f"Loaded configuration from {config_path}")
 
-    # Load training data
-    train_data_path = config.get("train_data_path", "./data/train_data.json")
-    with open(train_data_path, "r", encoding="utf-8") as f:
-        train_data = json.load(f)
-    logging.info(f"Loaded {len(train_data)} training samples from {train_data_path}")
+                # Validate configuration
+                DataValidator.validate_config(config)
+            except json.JSONDecodeError as e:
+                logging.error(f"Invalid JSON in configuration file: {str(e)}")
+                raise ValidationError(f"Invalid JSON in configuration file: {str(e)}")
+            except ValidationError as e:
+                logging.error(f"Configuration validation failed: {str(e)}")
+                raise
+        else:
+            if config_path:
+                logging.warning(f"Configuration file not found: {config_path}, using defaults")
+            config = get_default_config()
+            logging.info("Using default configuration")
 
-    # Initialize components
-    from code.models.vectorizer import BaseVectorizer
+        # Load training data
+        train_data_path = config.get("train_data_path", "./data/train_data.json")
 
-    vectorizer = BaseVectorizer(model_name=config.get("model_name", "bert-base-uncased"))
-    feature_extractor = FeatureExtractor(vectorizer=vectorizer)
+        if not os.path.exists(train_data_path):
+            raise FileNotFoundError(f"Training data file not found: {train_data_path}")
 
-    # Initialize agent
-    state_size = config.get("state_size", 770)
-    action_size = config.get("action_size", 3)
-    agent = FakeNewsAgent(state_size, action_size, config)
+        try:
+            with open(train_data_path, "r", encoding="utf-8") as f:
+                train_data = json.load(f)
+            logging.info(f"Loaded {len(train_data)} training samples from {train_data_path}")
+        except json.JSONDecodeError as e:
+            logging.error(f"Invalid JSON in training data file: {str(e)}")
+            raise ValidationError(f"Invalid JSON in training data file: {str(e)}")
+        except Exception as e:
+            logging.error(f"Error loading training data: {str(e)}")
+            raise
 
-    # Initialize trainer
-    trainer = Trainer(agent, feature_extractor, config)
+        # Initialize components
+        from code.models.vectorizer import BaseVectorizer
 
-    # Train
-    trainer.train(train_data)
+        try:
+            vectorizer = BaseVectorizer(model_name=config.get("model_name", "bert-base-uncased"))
+            feature_extractor = FeatureExtractor(vectorizer=vectorizer)
+            logging.info("Initialized feature extractor and vectorizer")
+        except Exception as e:
+            logging.error(f"Error initializing vectorizer: {str(e)}")
+            raise
+
+        # Initialize agent
+        state_size = config.get("state_size", 770)
+        action_size = config.get("action_size", 3)
+
+        try:
+            agent = FakeNewsAgent(state_size, action_size, config)
+            logging.info("Initialized FakeNewsAgent")
+        except Exception as e:
+            logging.error(f"Error initializing agent: {str(e)}")
+            raise
+
+        # Initialize trainer
+        trainer = Trainer(agent, feature_extractor, config)
+
+        # Train
+        try:
+            trainer.train(train_data)
+            logging.info("Training completed successfully!")
+        except ValidationError as e:
+            logging.error(f"Training failed due to validation error: {str(e)}")
+            raise
+        except Exception as e:
+            logging.error(f"Training failed with error: {str(e)}")
+            raise
+
+    except KeyboardInterrupt:
+        logging.warning("Training interrupted by user")
+        raise
+    except Exception as e:
+        logging.error(f"Fatal error in training pipeline: {str(e)}")
+        raise
 
 
 if __name__ == "__main__":

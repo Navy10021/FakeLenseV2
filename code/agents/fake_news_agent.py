@@ -71,6 +71,10 @@ class FakeNewsAgent:
         self.update_target_freq = config.get("update_target_freq", 10)
         self.tau = config.get("tau", 0.005)
 
+        # Reward shaping parameters
+        self.reward_penalty_confident_wrong = config.get("reward_penalty_confident_wrong", 2.0)
+        self.reward_penalty_correct = config.get("reward_penalty_correct", 0.5)
+
         # Training state
         self.step_count = 0
 
@@ -126,6 +130,19 @@ class FakeNewsAgent:
     def replay(self) -> None:
         """
         Train the model using experience replay with Double DQN.
+
+        Implements:
+            - Random sampling from replay buffer
+            - Double DQN target computation
+            - Confidence-based reward shaping
+            - Gradient descent optimization
+            - Epsilon decay
+            - Soft target network updates
+
+        Notes:
+            - Requires at least batch_size samples in memory
+            - Updates target network every update_target_freq steps
+            - Applies configurable reward penalties based on prediction confidence
         """
         # Not enough samples in memory
         if len(self.memory) < self.batch_size:
@@ -166,10 +183,10 @@ class FakeNewsAgent:
             if not dones[i]:
                 if torch.argmax(q_values[i]).item() != actions[i]:
                     # Higher penalty for confident wrong predictions
-                    reward_penalty = 2 * confidence
+                    reward_penalty = self.reward_penalty_confident_wrong * confidence
                 else:
                     # Smaller penalty for correct predictions
-                    reward_penalty = 0.5 * confidence
+                    reward_penalty = self.reward_penalty_correct * confidence
                 q_target[i, actions[i]] -= reward_penalty
 
         # Compute loss and update

@@ -9,8 +9,6 @@
 
 **An AI-Powered Fake News Detection System Integrating LLMs and Deep Reinforcement Learning**
 
-[Features](#-key-features) • [Architecture](#-system-architecture) • [Installation](#-installation) • [Usage](#-usage) • [Performance](#-performance) 
-
 </div>
 
 ---

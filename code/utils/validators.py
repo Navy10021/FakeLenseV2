@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 class ValidationError(Exception):
     """Custom exception for validation errors"""
+
     pass
 
 
@@ -75,7 +76,9 @@ class DataValidator:
         return True
 
     @staticmethod
-    def validate_social_reactions(reactions: float, max_value: float = SOCIAL_REACTIONS_MAX) -> bool:
+    def validate_social_reactions(
+        reactions: float, max_value: float = SOCIAL_REACTIONS_MAX
+    ) -> bool:
         """
         Validate social reactions count.
 
@@ -90,13 +93,17 @@ class DataValidator:
             ValidationError: If validation fails
         """
         if not isinstance(reactions, (int, float)):
-            raise ValidationError(f"Social reactions must be numeric, got {type(reactions)}")
+            raise ValidationError(
+                f"Social reactions must be numeric, got {type(reactions)}"
+            )
 
         if reactions < 0:
             raise ValidationError("Social reactions cannot be negative")
 
         if reactions > max_value:
-            raise ValidationError(f"Social reactions value too large (max: {max_value})")
+            raise ValidationError(
+                f"Social reactions value too large (max: {max_value})"
+            )
 
         return True
 
@@ -132,7 +139,9 @@ class DataValidator:
 
         # Validate label
         if sample["label"] not in [0, 1, 2]:
-            raise ValidationError(f"Invalid label: {sample['label']} (must be 0, 1, or 2)")
+            raise ValidationError(
+                f"Invalid label: {sample['label']} (must be 0, 1, or 2)"
+            )
 
         return True
 
@@ -181,8 +190,12 @@ class DataValidator:
             ValidationError: If validation fails
         """
         required_params = [
-            "state_size", "action_size", "learning_rate",
-            "batch_size", "gamma", "epsilon"
+            "state_size",
+            "action_size",
+            "learning_rate",
+            "batch_size",
+            "gamma",
+            "epsilon",
         ]
 
         for param in required_params:

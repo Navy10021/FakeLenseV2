@@ -10,7 +10,7 @@ from .exceptions import (
     ValidationError,
     TrainingError,
     InferenceError,
-    ConfigurationError
+    ConfigurationError,
 )
 from .logging_utils import StructuredLogger, RequestIDMiddleware, log_duration
 
@@ -29,5 +29,5 @@ __all__ = [
     "ConfigurationError",
     "StructuredLogger",
     "RequestIDMiddleware",
-    "log_duration"
+    "log_duration",
 ]

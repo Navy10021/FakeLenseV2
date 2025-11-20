@@ -44,10 +44,7 @@ class FeatureExtractor:
         return SOURCE_RELIABILITY_MAPPING.get(source, DEFAULT_RELIABILITY)
 
     def extract_features(
-        self,
-        text: str,
-        source: str,
-        social_reactions: float
+        self, text: str, source: str, social_reactions: float
     ) -> np.ndarray:
         """
         Extract combined features from article data.
@@ -88,10 +85,8 @@ class FeatureExtractor:
         normalized_social = social_reactions / SOCIAL_REACTIONS_NORMALIZER
 
         # Combine all features
-        combined_features = np.concatenate([
-            text_vector,
-            [reliability_score],
-            [normalized_social]
-        ], axis=0)
+        combined_features = np.concatenate(
+            [text_vector, [reliability_score], [normalized_social]], axis=0
+        )
 
         return combined_features

@@ -23,9 +23,7 @@ class TestFeatureExtractor:
         """Test feature extraction"""
         extractor = FeatureExtractor()
         features = extractor.extract_features(
-            text="Test article about news.",
-            source="Reuters",
-            social_reactions=5000
+            text="Test article about news.", source="Reuters", social_reactions=5000
         )
         # 768 (BERT) + 1 (reliability) + 1 (social)
         assert features.shape == (770,)

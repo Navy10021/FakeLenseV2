@@ -46,7 +46,9 @@ class FakeNewsAgent:
 
         if use_residual:
             self.model = DQNResidual(state_size, action_size, dropout).to(self.device)
-            self.target_model = DQNResidual(state_size, action_size, dropout).to(self.device)
+            self.target_model = DQNResidual(state_size, action_size, dropout).to(
+                self.device
+            )
         else:
             self.model = DQN(state_size, action_size).to(self.device)
             self.target_model = DQN(state_size, action_size).to(self.device)
@@ -57,8 +59,7 @@ class FakeNewsAgent:
 
         # Optimizer and loss function
         self.optimizer = optim.Adam(
-            self.model.parameters(),
-            lr=config.get("learning_rate", 0.0005)
+            self.model.parameters(), lr=config.get("learning_rate", 0.0005)
         )
         self.criterion = nn.MSELoss()
 
@@ -72,7 +73,9 @@ class FakeNewsAgent:
         self.tau = config.get("tau", 0.005)
 
         # Reward shaping parameters
-        self.reward_penalty_confident_wrong = config.get("reward_penalty_confident_wrong", 2.0)
+        self.reward_penalty_confident_wrong = config.get(
+            "reward_penalty_confident_wrong", 2.0
+        )
         self.reward_penalty_correct = config.get("reward_penalty_correct", 0.5)
 
         # Training state
@@ -84,7 +87,7 @@ class FakeNewsAgent:
         action: int,
         reward: float,
         next_state: np.ndarray,
-        done: bool
+        done: bool,
     ) -> None:
         """
         Store a transition in the replay memory.
@@ -175,7 +178,9 @@ class FakeNewsAgent:
             else:
                 # Double DQN update
                 best_action = torch.argmax(next_q_values[i]).item()
-                q_target[i, actions[i]] = rewards[i] + self.gamma * next_q_target[i, best_action]
+                q_target[i, actions[i]] = (
+                    rewards[i] + self.gamma * next_q_target[i, best_action]
+                )
 
         # Reward shaping: Apply confidence-based penalty
         for i in range(self.batch_size):
@@ -210,7 +215,9 @@ class FakeNewsAgent:
 
         θ_target = τ * θ_model + (1 - τ) * θ_target
         """
-        for target_param, param in zip(self.target_model.parameters(), self.model.parameters()):
+        for target_param, param in zip(
+            self.target_model.parameters(), self.model.parameters()
+        ):
             target_param.data.copy_(
                 self.tau * param.data + (1.0 - self.tau) * target_param.data
             )

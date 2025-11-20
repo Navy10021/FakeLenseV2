@@ -25,9 +25,7 @@ class BaseVectorizer:
         self.model.eval()  # Set to evaluation mode
 
     def vectorize(
-        self,
-        text: Union[str, List[str]],
-        pooling: bool = False
+        self, text: Union[str, List[str]], pooling: bool = False
     ) -> Union[np.ndarray, torch.Tensor]:
         """
         Convert text into vector embeddings.
@@ -40,11 +38,7 @@ class BaseVectorizer:
             Text embedding as numpy array or torch.Tensor
         """
         inputs = self.tokenizer(
-            text,
-            return_tensors="pt",
-            padding=True,
-            truncation=True,
-            max_length=512
+            text, return_tensors="pt", padding=True, truncation=True, max_length=512
         ).to(self.device)
 
         with torch.no_grad():

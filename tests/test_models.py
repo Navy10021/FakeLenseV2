@@ -67,10 +67,7 @@ class TestVectorizer:
     def test_vectorize_batch(self):
         """Test vectorizing multiple texts"""
         vectorizer = BaseVectorizer()
-        texts = [
-            "First test article",
-            "Second test article"
-        ]
+        texts = ["First test article", "Second test article"]
         vectors = vectorizer.vectorize(texts)
         assert isinstance(vectors, np.ndarray)
         assert vectors.shape == (2, 768)

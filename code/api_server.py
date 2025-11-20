@@ -243,7 +243,7 @@ async def predict(req: Request, request: PredictionRequest):
         duration_ms = (time.time() - start_time) * 1000
         logger.log_prediction(
             request_id=request_id,
-            text_length=len(request.text) if hasattr(request, 'text') else 0,
+            text_length=len(request.text) if hasattr(request, "text") else 0,
             source=request.source,
             prediction=-1,
             label="ValidationError",
@@ -260,7 +260,9 @@ async def predict(req: Request, request: PredictionRequest):
     except RuntimeError as e:
         # Runtime errors (e.g., CUDA errors, model inference issues)
         duration_ms = (time.time() - start_time) * 1000
-        logger.error("Runtime error during prediction", error=str(e), request_id=request_id)
+        logger.error(
+            "Runtime error during prediction", error=str(e), request_id=request_id
+        )
         raise HTTPException(status_code=500, detail="Model inference error occurred")
     except Exception as e:
         # Catch-all for unexpected errors
@@ -275,8 +277,12 @@ async def predict(req: Request, request: PredictionRequest):
             duration_ms=duration_ms,
             error=str(e),
         )
-        logger.error("Unexpected error during prediction", error=str(e), request_id=request_id)
-        raise HTTPException(status_code=500, detail="An unexpected error occurred during prediction")
+        logger.error(
+            "Unexpected error during prediction", error=str(e), request_id=request_id
+        )
+        raise HTTPException(
+            status_code=500, detail="An unexpected error occurred during prediction"
+        )
 
 
 @app.post("/batch_predict")
@@ -356,7 +362,11 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
                     }
                 )
                 error_count += 1
-                logger.error("Runtime error in batch prediction", error=str(e), request_id=request_id)
+                logger.error(
+                    "Runtime error in batch prediction",
+                    error=str(e),
+                    request_id=request_id,
+                )
             except Exception as e:
                 results.append(
                     {
@@ -372,7 +382,11 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
                     }
                 )
                 error_count += 1
-                logger.error("Unexpected error in batch prediction", error=str(e), request_id=request_id)
+                logger.error(
+                    "Unexpected error in batch prediction",
+                    error=str(e),
+                    request_id=request_id,
+                )
 
         duration_ms = (time.time() - start_time) * 1000
 
@@ -414,9 +428,12 @@ async def batch_predict(req: Request, batch_request: BatchPredictionRequest):
             error_count=batch_size,
             error=str(e),
         )
-        logger.error("Critical error in batch prediction", error=str(e), request_id=request_id)
+        logger.error(
+            "Critical error in batch prediction", error=str(e), request_id=request_id
+        )
         raise HTTPException(
-            status_code=500, detail="An unexpected error occurred during batch prediction"
+            status_code=500,
+            detail="An unexpected error occurred during batch prediction",
         )
 
 

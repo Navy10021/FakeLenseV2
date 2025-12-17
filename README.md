@@ -13,6 +13,8 @@
 
 ---
 #### 국가정보원(NIS) 주관 「2025 국가 방첩 우수논문」 수상작
+#### 국방부 주관 「2025 국방과 보안 우수논문」 수상작
+
 ## 🌟 Overview
 
 Fake news and disinformation have become pervasive threats to societies, shaping public opinion, influencing political discourse, and eroding trust in credible information sources. The rapid evolution of misinformation tactics necessitates adaptive and robust detection mechanisms that go beyond traditional machine learning approaches.
